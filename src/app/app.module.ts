@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TargetTableComponent } from './target-table/target-table.component';
+import { ButtonToggleComponent } from './button-toggle/button-toggle.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TargetTableComponent
+    TargetTableComponent,
+    ButtonToggleComponent
   ],
   imports: [
     BrowserModule

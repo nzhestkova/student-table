@@ -1,17 +1,22 @@
 <table class="table">
   <thead class="table-head">
   <tr>
-    <th class="cell">№</th>
-    <th class="cell">ФИО</th>
-    <th class="cell">Группа, курс</th>
-    <th class="cell">Средний балл</th>
+    <th>№</th>
+    <th>ФИО</th>
+    <th>Группа, курс</th>
+    <th>День рождения</th>
+    <th>Возраст</th>
+    <th>Средний балл</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let student of students; let i = index">
+  <tr [ngClass]="{bad__cell: isBad(student.mark), good__cell: !isBad(student.mark), none: markMode}"
+      *ngFor="let student of students; let i = index">
     <td> {{i + 1}} </td>
     <td> {{student.name}} </td>
     <td> {{student.group}}, {{student.course}} </td>
+    <td> {{student.birth.getDate()}} {{ parseMonth(student.birth.getMonth()) }} </td>
+    <td> {{now - student.birth.getFullYear()}} </td>
     <td> {{student.mark}} </td>
   </tr>
   </tbody>

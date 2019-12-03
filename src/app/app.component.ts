@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular';
-  count = 0;
-  counter() {
-    return this.count ++;
+  mode = false;
+  onChange() {
+    this.mode = !this.mode;
+    console.log(this.mode);
   }
 }
