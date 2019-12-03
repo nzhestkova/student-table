@@ -1,0 +1,18 @@
+<table class="table">
+  <thead class="table-head">
+  <tr>
+    <th class="cell">№</th>
+    <th class="cell">ФИО</th>
+    <th class="cell">Группа, курс</th>
+    <th class="cell">Средний балл</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let student of students; let i = index">
+    <td> {{i + 1}} </td>
+    <td> {{student.name}} </td>
+    <td> {{student.group}}, {{student.course}} </td>
+    <td> {{student.mark}} </td>
+  </tr>
+  </tbody>
+</table>

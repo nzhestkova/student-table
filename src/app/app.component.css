@@ -1,0 +1,10 @@
+#record {
+  display: block;
+  font-size: 2em;
+  font-family: "Book Antiqua", serif;
+  text-align: center;
+}
+button {
+  margin-right: 0;
+}
+
