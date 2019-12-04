@@ -1,4 +1,4 @@
 <div class="main">
-  <app-target-table [markMode]="mode" class="table-inside"></app-target-table>
-  <app-button-toggle class="panel" (Changed)="onChange()"></app-button-toggle>
+  <app-target-table [markMode]="mode" [request]="searchRequest" class="table-inside"></app-target-table>
+  <app-button-toggle class="panel" (Changed)="onChange()" (Input)="search($event)"></app-button-toggle>
 </div>

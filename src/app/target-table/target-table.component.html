@@ -1,16 +1,17 @@
 <table class="table">
-  <thead class="table-head">
+  <thead>
   <tr>
-    <th>№</th>
-    <th>ФИО</th>
-    <th>Группа, курс</th>
-    <th>День рождения</th>
-    <th>Возраст</th>
-    <th>Средний балл</th>
+    <th class="cell__average" (click)="sortNumbers()">№</th>
+    <th class="cell__average" (click)="sortNames()">ФИО</th>
+    <th class="cell__average" (click)="sortCourse()">Группа, курс</th>
+    <th class="cell__average" (click)="sortBirth()">День рождения</th>
+    <th class="cell__average" (click)="sortYear()">Возраст</th>
+    <th class="cell__average" (click)="sortMarks()">Средний балл</th>
   </tr>
   </thead>
   <tbody>
-  <tr [ngClass]="{bad__cell: isBad(student.mark), good__cell: !isBad(student.mark), none: markMode}"
+  <tr [ngClass]="{bad__cell: isBad(student.mark), good__cell: isGood(student.mark),
+  medium: isMedium(student.mark), none: markMode, readline: contain(student.name, request)}"
       *ngFor="let student of students; let i = index">
     <td> {{i + 1}} </td>
     <td> {{student.name}} </td>

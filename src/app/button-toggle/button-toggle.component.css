@@ -1,7 +1,7 @@
 .panel_toggle {
-  position: absolute;
-  left: 10%;
-  top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
   padding: 10px;
   color: black;
   background: rgba(146, 149, 86, 0.51);
@@ -15,5 +15,15 @@
 }
 .panel_toggle:active {
   background: #929556;
+}
+.panel_input {
+  outline: none;
+  font-size: 1.2em;
+  font-family: "Book Antiqua", serif;
+  margin: auto;
+}
+.simple_text {
+  font-family: "Book Antiqua", serif;
+  font-size: 1.2em;
 }
 /*# sourceMappingURL=button-toggle.component.css.map */

@@ -7,8 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   mode = false;
+  searchRequest: string;
   onChange() {
     this.mode = !this.mode;
-    console.log(this.mode);
+  }
+
+  search(line: string) {
+    this.searchRequest = line;
   }
 }

@@ -7,9 +7,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ButtonToggleComponent implements OnInit {
   constructor() { }
+  request: string;
+  @Output() Input = new EventEmitter();
   @Output() Changed = new EventEmitter();
+  searching(increased: string) {
+    this.Input.emit(increased);
+  }
   change() {
-    console.log(`Button was pressed`);
     this.Changed.emit();
   }
   ngOnInit() {

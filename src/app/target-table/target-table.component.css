@@ -13,7 +13,23 @@
 .good__cell {
   background: rgba(17, 108, 34, 0.3);
 }
+.medium {
+  background: rgba(254, 255, 24, 0.3);
+}
 .none {
   background: none;
+}
+.readline {
+  background: #31b1ff;
+}
+.cell__average {
+  outline: none;
+}
+.cell__average:hover {
+  background: rgba(255, 236, 164, 0.5);
+  cursor: pointer;
+}
+.cell__average:active {
+  background: #ffeca4;
 }
 /*# sourceMappingURL=target-table.component.css.map */
