@@ -1,24 +1,31 @@
-<div class="buttons">
-  <label>
-    <input class="panel_input" (input)="searching(request)" [(ngModel)]="request">
-  </label>
-  <button class="panel_toggle" (click)="change()">Toggle</button>
-  <button class="panel_toggle" (click)="removeMode(mode_isOff)">Removing Mode</button>
-  <label>
-    <input type="date" [(ngModel)]="date_interval_left" (change)="getDateInterval(date_interval_left, date_interval_right)">
-  </label>
-  <label>
-    <input type="date" [(ngModel)]="date_interval_right" (change)="getDateInterval(date_interval_left, date_interval_right)">
-  </label>
-  <div style="display: flex; flex-direction: column">
-    <label> Средний балл: от {{mark_interval_left}} до {{mark_interval_right}}
+<div class="panel">
+  <div class="panel__settings">
+    <span>Внешний вид таблицы:</span>
+    <label><input type="checkbox" (click)="change()">Подсветка оценок</label>
+    <label><input type="checkbox" (click)="removeMode(mode_isOff)">Кнопки удаления</label>
+  </div>
+  <div class="panel__filtrationByDate">
+    <span>Фильтровать по дате рождения:</span>
+    <label>
+      <input type="date" [(ngModel)]="date_interval_left" (change)="getDateInterval(date_interval_left, date_interval_right)">
+      <input type="date" [(ngModel)]="date_interval_right" (change)="getDateInterval(date_interval_left, date_interval_right)">
+    </label>
+  </div>
+  <div class="panel__filtrationByMark">
+    <span>Средний балл: от {{mark_interval_left}} до {{mark_interval_right}}</span>
+    <label>
       <input type="range" min="0" max="5" (click)="getMarkInterval(mark_interval_left, mark_interval_right)"
              [(ngModel)]="mark_interval_left">
-    </label>
-    <label>
       <input type="range" min="0" max="5" (click)="getMarkInterval(mark_interval_left, mark_interval_right)"
              [(ngModel)]="mark_interval_right">
     </label>
   </div>
-  <button (click)="resetFiltration()">✕</button>
+  <div class="panel__filtrationReset">
+    <span>Сбросить фильтр</span>
+    <button (click)="resetFiltration()">✕</button>
+  </div>
+  <label class="search">
+    <span>Поиск студента:</span>
+    <input type="search" (input)="searching(request)" [(ngModel)]="request">
+  </label>
 </div>

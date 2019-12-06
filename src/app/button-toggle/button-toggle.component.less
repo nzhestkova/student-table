@@ -1,26 +1,83 @@
 @font: "Book Antiqua", serif;
-.panel_toggle {
-  color: black;
-  background: rgba(146,149,86,0.51);
-  border: 1px solid rgb(146, 149, 86);
-  outline: none;
-  font-size: 1.2em;
+.panel {
   font-family: @font;
-  &:hover {
-    background: rgba(146,149,86,0.75);
-  }
-  &:active {
-    background: rgb(146, 149, 86);
-  }
-}
-.panel_input {
-  outline: none;
-  font-size: 1.2em;
-  font-family: @font;
-  margin-left: 10px;
-  margin-right: 20px;
-}
-.buttons {
   display: flex;
-  padding: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+  &__settings {
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0.5em;
+    & input {
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+  }
+  &__filtrationByDate {
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    & span {
+      text-align: center;
+    }
+    & label {
+      margin: auto;
+    }
+  }
+  &__filtrationByMark {
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    & span {
+      text-align: center;
+    }
+    & label {
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &__filtrationReset {
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    & span {
+      text-align: center;
+    }
+    & button {
+      margin: auto;
+      outline: none;
+      color: rgba(0, 0, 0, 0.3);
+      background: white;
+      border: 1px rgba(0, 0, 0, 0.3) solid;
+      &:hover {
+        color: rgba(0, 0, 0, 0.7);
+        border: 1px rgba(0, 0, 0, 0.7) solid;
+      }
+      &:active {
+        color: white;
+        border: 1px rgba(0, 0, 0, 1) solid;
+        background: black;
+      }
+    }
+  }
+}
+.search {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  font-family: @font;
+  & input {
+    font-size: 1.2em;
+    font-family: @font;
+    outline: none;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }

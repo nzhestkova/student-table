@@ -18,9 +18,9 @@ class Students {
 let current_number: number = 154321;
 export let students = [
   new Students(current_number++, "Ivanov I.I.", "16-AS",
-    3, 3.5, new Date(2019, 1, 1)),
+    3, 3.5, new Date(1995, 1, 1)),
   new Students(current_number++, "Not Ivanov NI.NI.", "16-AS",
-    1, 4.5, new Date(2019, 11, 6)),
+    1, 4.5, new Date(2001, 11, 6)),
   new Students(current_number++, "Bad Student", "16-AS",
     3, 2.9, new Date(1998, 10, 12)),
   new Students(current_number++, "Very Bad Student", "16-AS",

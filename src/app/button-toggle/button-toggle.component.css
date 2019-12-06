@@ -1,26 +1,83 @@
-.panel_toggle {
-  color: black;
-  background: rgba(146, 149, 86, 0.51);
-  border: 1px solid #929556;
-  outline: none;
-  font-size: 1.2em;
+.panel {
   font-family: "Book Antiqua", serif;
-}
-.panel_toggle:hover {
-  background: rgba(146, 149, 86, 0.75);
-}
-.panel_toggle:active {
-  background: #929556;
-}
-.panel_input {
-  outline: none;
-  font-size: 1.2em;
-  font-family: "Book Antiqua", serif;
-  margin-left: 10px;
-  margin-right: 20px;
-}
-.buttons {
   display: flex;
-  padding: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+}
+.panel__settings {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.5em;
+}
+.panel__settings input {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.panel__filtrationByDate {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+}
+.panel__filtrationByDate span {
+  text-align: center;
+}
+.panel__filtrationByDate label {
+  margin: auto;
+}
+.panel__filtrationByMark {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+}
+.panel__filtrationByMark span {
+  text-align: center;
+}
+.panel__filtrationByMark label {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.panel__filtrationReset {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.panel__filtrationReset span {
+  text-align: center;
+}
+.panel__filtrationReset button {
+  margin: auto;
+  outline: none;
+  color: rgba(0, 0, 0, 0.3);
+  background: white;
+  border: 1px rgba(0, 0, 0, 0.3) solid;
+}
+.panel__filtrationReset button:hover {
+  color: rgba(0, 0, 0, 0.7);
+  border: 1px rgba(0, 0, 0, 0.7) solid;
+}
+.panel__filtrationReset button:active {
+  color: white;
+  border: 1px #000000 solid;
+  background: black;
+}
+.search {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  font-family: "Book Antiqua", serif;
+}
+.search input {
+  font-size: 1.2em;
+  font-family: "Book Antiqua", serif;
+  outline: none;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 /*# sourceMappingURL=button-toggle.component.css.map */

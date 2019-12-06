@@ -6,18 +6,17 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
   styleUrls: ["./button-toggle.component.css"]
 })
 export class ButtonToggleComponent implements OnInit {
-  request: string;
-  mode_isOff = true;
-  now = new Date(2019, 12, 6);
-  date_interval_left: string;
-  date_interval_right: string;
-  mark_interval_left = 0;
-  mark_interval_right = 5;
   @Output() GetMarkInterval = new EventEmitter();
   @Output() GetDateInterval = new EventEmitter();
   @Output() RemoveMode = new EventEmitter();
   @Output() Input = new EventEmitter();
   @Output() Changed = new EventEmitter();
+  request: string;
+  mode_isOff = true;
+  date_interval_left: string;
+  date_interval_right: string;
+  mark_interval_left = 0;
+  mark_interval_right = 5;
   searching(increased: string): void {
     this.Input.emit(increased);
   }
