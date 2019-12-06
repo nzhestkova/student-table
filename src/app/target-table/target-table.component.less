@@ -3,46 +3,73 @@
   font-family: "Book Antiqua", serif;
   padding: 10px;
   width: 100%;
-  border-style: double;
+  border-style: solid;
   border-color: black;
   border-width: 1px;
 }
-.bad__cell {
-  background: rgba(255,85,62,0.3);
+.line {
+  &__bad {
+    border-collapse: collapse; /*убираем пустые промежутки между ячейками*/
+    border: 1px solid grey; /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
+    background: rgba(255,85,62,0.3);
+  }
+  &__good {
+    background: rgba(17,108,34,0.3);
+  }
+  &__medium {
+    background: rgba(254,255,24,0.3);
+  }
+  &__noMark {
+    background: none;
+  }
+  &__hidden {
+    display: none;
+  }
+  &__main {
+    //position: fixed;
+  }
 }
-.good__cell {
-  background: rgba(17,108,34,0.3)
+th {
+  position: relative;
+  cursor: pointer;
+  &::after {
+    content: "";
+    position: absolute;
+    right: 5%;
+    top: 30%;
+    border-width: 10px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.65) transparent transparent transparent;
+    visibility: hidden;
+  }
+  &:hover {
+    &::after {
+      visibility: visible;
+    }
+  }
 }
-.medium {
-  background: rgba(254,255,24,0.3)
+.cell__numbers {
+  text-align: center;
 }
-.none {
-  background: none;
+.cell__string {
+  text-align: left;
 }
-.readline {
-  background: #31b1ff;
-}
-.cell__average {
+.btn__remove {
+  width: 100%;
+  font-size: 1em;
+  text-align: center;
+  background: rgba(255, 56, 22, 0.76);
+  border: none;
   outline: none;
   &:hover {
-    background: rgba(255,236,164,0.5);
-    cursor: pointer;
+    background: brown;
   }
   &:active {
-    background: rgba(255,236,164,1);
+    background: black;
+    color: white;
   }
-  //&::after {
-  //  content: "";
-  //  position: absolute;
-  //  visibility: hidden;
-  //  border: 4px solid transparent;
-  //  border-top: 4px solid black;
-  //  margin-left: 1.2em;
-  //}
-  //&:hover {
-  //  &::after {
-  //    visibility: visible;
-  //  }
-  //}
-
 }
+.hidden {
+  display: none;
+}
+

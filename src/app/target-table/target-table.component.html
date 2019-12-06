@@ -1,24 +1,34 @@
 <table class="table">
-  <thead>
+  <thead class="line__main">
   <tr>
-    <th class="cell__average" (click)="sortNumbers()">№</th>
-    <th class="cell__average" (click)="sortNames()">ФИО</th>
-    <th class="cell__average" (click)="sortCourse()">Группа, курс</th>
-    <th class="cell__average" (click)="sortBirth()">День рождения</th>
-    <th class="cell__average" (click)="sortYear()">Возраст</th>
-    <th class="cell__average" (click)="sortMarks()">Средний балл</th>
+    <th class="cell__numbers" (click)="sorted('record_book_number')">№</th>
+    <th class="cell__string" (click)="sorted('name')">ФИО</th>
+    <th class="cell__string" (click)="sorted('course')">Группа, курс</th>
+    <th class="cell__string" (click)="sortedByBirth('birth')">День рождения</th>
+    <th class="cell__numbers" (click)="sortedByYear('birth')">Возраст</th>
+    <th class="cell__numbers" (click)="sorted('mark')">Средний балл</th>
   </tr>
   </thead>
   <tbody>
-  <tr [ngClass]="{bad__cell: isBad(student.mark), good__cell: isGood(student.mark),
-  medium: isMedium(student.mark), none: markMode, readline: contain(student.name, request)}"
-      *ngFor="let student of students; let i = index">
-    <td> {{i + 1}} </td>
+  <tr [ngClass]="{
+       line: true,
+       line__bad: isBad(student.mark),
+       line__good: isGood(student.mark),
+       line__medium: isMedium(student.mark),
+       line__noMark: markMode,
+       line__hidden: !contain(student.name, request) || !filtrationByDate(student.birth, dateFiltrationInterval) || !filtrationByMark(student.mark, markFiltrationInterval)}"
+      *ngFor="let student of students;">
+    <td class="cell__numbers"> {{student.record_book_number}} </td>
     <td> {{student.name}} </td>
     <td> {{student.group}}, {{student.course}} </td>
     <td> {{student.birth.getDate()}} {{ parseMonth(student.birth.getMonth()) }} </td>
-    <td> {{now - student.birth.getFullYear()}} </td>
-    <td> {{student.mark}} </td>
+    <td class="cell__numbers"> {{currentAge(student.birth.getFullYear())}} </td>
+    <td class="cell__numbers"> {{student.mark}} </td>
+    <td [ngClass]="{hidden: !removingMode}">
+      <button class="btn__remove" (click)="remove__btn(student.record_book_number, student.name)">✕</button>
+    </td>
   </tr>
   </tbody>
 </table>
+<app-popup *ngIf="popup" (Confirm)="getConfirm($event)"
+           [student__name]="removing__name"></app-popup>

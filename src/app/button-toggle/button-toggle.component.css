@@ -1,8 +1,4 @@
 .panel_toggle {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 15px;
-  padding: 10px;
   color: black;
   background: rgba(146, 149, 86, 0.51);
   border: 1px solid #929556;
@@ -20,10 +16,11 @@
   outline: none;
   font-size: 1.2em;
   font-family: "Book Antiqua", serif;
-  margin: auto;
+  margin-left: 10px;
+  margin-right: 20px;
 }
-.simple_text {
-  font-family: "Book Antiqua", serif;
-  font-size: 1.2em;
+.buttons {
+  display: flex;
+  padding: 1em;
 }
 /*# sourceMappingURL=button-toggle.component.css.map */

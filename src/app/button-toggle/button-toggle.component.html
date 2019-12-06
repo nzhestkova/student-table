@@ -1,3 +1,24 @@
-<input class="panel_input" (keyup)="searching(request)" [(ngModel)]="request">
-<div><span class="simple_text"></span></div>
-<button class="panel_toggle" (click)="change()">Toggle</button>
+<div class="buttons">
+  <label>
+    <input class="panel_input" (input)="searching(request)" [(ngModel)]="request">
+  </label>
+  <button class="panel_toggle" (click)="change()">Toggle</button>
+  <button class="panel_toggle" (click)="removeMode(mode_isOff)">Removing Mode</button>
+  <label>
+    <input type="date" [(ngModel)]="date_interval_left" (change)="getDateInterval(date_interval_left, date_interval_right)">
+  </label>
+  <label>
+    <input type="date" [(ngModel)]="date_interval_right" (change)="getDateInterval(date_interval_left, date_interval_right)">
+  </label>
+  <div style="display: flex; flex-direction: column">
+    <label> Средний балл: от {{mark_interval_left}} до {{mark_interval_right}}
+      <input type="range" min="0" max="5" (click)="getMarkInterval(mark_interval_left, mark_interval_right)"
+             [(ngModel)]="mark_interval_left">
+    </label>
+    <label>
+      <input type="range" min="0" max="5" (click)="getMarkInterval(mark_interval_left, mark_interval_right)"
+             [(ngModel)]="mark_interval_right">
+    </label>
+  </div>
+  <button (click)="resetFiltration()">✕</button>
+</div>
