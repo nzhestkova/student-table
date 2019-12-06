@@ -14,9 +14,9 @@
   <div class="panel__filtrationByMark">
     <span>Средний балл: от {{mark_interval_left}} до {{mark_interval_right}}</span>
     <label>
-      <input type="range" min="0" max="5" (click)="getMarkInterval(mark_interval_left, mark_interval_right)"
+      <input type="range" min="0" max="5" (input)="getMarkInterval(mark_interval_left, mark_interval_right)"
              [(ngModel)]="mark_interval_left">
-      <input type="range" min="0" max="5" (click)="getMarkInterval(mark_interval_left, mark_interval_right)"
+      <input type="range" min="0" max="5" (input)="getMarkInterval(mark_interval_left, mark_interval_right)"
              [(ngModel)]="mark_interval_right">
     </label>
   </div>
