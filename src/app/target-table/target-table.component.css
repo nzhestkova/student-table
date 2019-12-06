@@ -9,9 +9,7 @@
 }
 .line__bad {
   border-collapse: collapse;
-  /*убираем пустые промежутки между ячейками*/
   border: 1px solid grey;
-  /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
   background: rgba(255, 85, 62, 0.3);
 }
 .line__good {
