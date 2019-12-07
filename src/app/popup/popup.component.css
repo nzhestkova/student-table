@@ -18,18 +18,18 @@
   border-radius: 5px;
   box-shadow: 0 0 10px #000;
 }
-.buttons {
-  display: flex;
-}
-.button__confirm {
-  flex-grow: 1;
-  font-family: "Book Antiqua", serif;
-  font-size: 1.2em;
-}
-.message__confirm {
+.popup__remove__message__confirm {
   text-align: center;
   margin: 20px;
   font-size: 1.2em;
   font-family: "Book Antiqua", serif;
+}
+.popup__remove__buttons {
+  display: flex;
+}
+.popup__remove__buttons__confirm {
+  flex-grow: 1;
+  font-family: "Book Antiqua", serif;
+  font-size: 1.2em;
 }
 /*# sourceMappingURL=popup.component.css.map */

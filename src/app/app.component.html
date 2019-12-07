@@ -1,17 +1,14 @@
-<div class="main">
-  <app-button-toggle class="panel"
-                     (RemoveMode)="isRemoving($event)"
-                     (Changed)="onChange()"
-                     (GetDateInterval)="set_FiltrationInterval($event)"
-                     (GetMarkInterval)="set_MarkFiltrationInterval($event)"
-                     (Input)="search($event)">
+<div>
+  <app-button-toggle (removeModeToggle)="toggleRemoveMode()"
+                     (markHighlightToggle)="toggleHighlightMode()"
+                     (dateIntervalSet)="dateFiltrationBorders = $event"
+                     (markIntervalSet)="markFiltrationBorders = $event"
+                     (searchRequestInput)="searchRequest = $event">
   </app-button-toggle>
-  <app-target-table [markMode]="mode"
-                    [request]="searchRequest"
-                    [removingMode]="removingMode"
-                    [dateFiltrationInterval]="dateFiltrationInterval"
-                    [markFiltrationInterval]="markFiltrationInterval"
-                    class="table-inside">
+  <app-target-table [highlightMarkMode]="highlightMarkMode"
+                    [searchRequest]="searchRequest"
+                    [removingModeOff]="removingModeOff"
+                    [dateFiltrationBorders]="dateFiltrationBorders"
+                    [markFiltrationBorders]="markFiltrationBorders">
   </app-target-table>
 </div>
-

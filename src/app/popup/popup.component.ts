@@ -6,10 +6,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
   styleUrls: ["./popup.component.css"]
 })
 export class PopupComponent implements OnInit {
-  @Output() Confirm = new EventEmitter();
-  @Input() student__name: string;
+  @Output() answerInput = new EventEmitter();
+  @Input() studentName: string;
   onClickConfirmation(increased: boolean): void {
-    this.Confirm.emit(increased);
+    this.answerInput.emit(increased);
   }
   ngOnInit(): void {
   }

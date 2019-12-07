@@ -6,29 +6,29 @@
   position: fixed;
   background-color: rgba(0,0,0,0.5);
   overflow:hidden;
-}
-.popup__remove__message {
-  display: flex;
-  flex-direction: column;
-  margin-top: 5%;
-  margin-left: 35%;
-  margin-right: 35%;
-  padding:10px;
-  background-color: #c5c5c5;
-  border-radius:5px;
-  box-shadow: 0 0 10px #000;
-}
-.buttons {
-  display: flex;
-}
-.button__confirm {
-  flex-grow: 1;
-  font-family: "Book Antiqua", serif;
-  font-size: 1.2em;
-}
-.message__confirm {
-  text-align: center;
-  margin: 20px;
-  font-size: 1.2em;
-  font-family: "Book Antiqua", serif;
+  &__message {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding:10px;
+    background-color: #c5c5c5;
+    border-radius:5px;
+    box-shadow: 0 0 10px #000;
+    &__confirm {
+      text-align: center;
+      margin: 20px;
+      font-size: 1.2em;
+      font-family: "Book Antiqua", serif;
+    }
+  }
+  &__buttons {
+    display: flex;
+    &__confirm {
+      flex-grow: 1;
+      font-family: "Book Antiqua", serif;
+      font-size: 1.2em;
+    }
+  }
 }

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { students as stud } from "src/model/students";
+import { Component, Input, OnInit } from "@angular/core";
+import { students } from "src/model/students";
 
 @Component({
   selector: "app-target-table",
@@ -7,29 +7,27 @@ import { students as stud } from "src/model/students";
   styleUrls: ["./target-table.component.css"]
 })
 export class TargetTableComponent implements OnInit {
-  confirm: boolean;
-  popup: boolean;
-  @Input() dateFiltrationInterval: string[];
-  @Input() markFiltrationInterval: number[];
-  @Input() markMode: boolean;
-  @Input() request;
-  @Input() removingMode: boolean;
-  removing__number: number;
-  removing__name: string;
-  @Output() Removing = new EventEmitter();
-  students = stud;
-  pressSort = 0;
-  currentAge(year: number): number {
+  @Input() dateFiltrationBorders: string[];
+  @Input() markFiltrationBorders: number[];
+  @Input() highlightMarkMode: boolean;
+  @Input() searchRequest: string;
+  @Input() removingModeOff: boolean;
+  showPopup: boolean;
+  studentRemovingNumber: number;
+  studentRemovingName: string;
+  studentsList = students;
+  countSortClicks = 0;
+  studentCurrentAge(year: number): number {
     const now = new Date();
     return now.getFullYear() - year;
   }
-  isBad(value: number): boolean {
+  isBadMark(value: number): boolean {
     return value < 3;
   }
-  isGood(value: number): boolean {
+  isGoodMark(value: number): boolean {
     return value >= 4;
   }
-  isMedium(value: number): boolean {
+  isMediumMark(value: number): boolean {
     return value >= 3 && value < 4;
   }
   parseMonth(value: number): string {
@@ -48,7 +46,7 @@ export class TargetTableComponent implements OnInit {
       default: return "декабря";
     }
   }
-  contain(line: string, request: string): boolean {
+  nameContainRequest(line: string, request: string): boolean {
     if (!request || request === " ") { return true; }
     return line.toLowerCase().includes(request.toLowerCase());
 
@@ -66,49 +64,46 @@ export class TargetTableComponent implements OnInit {
       return -1;
     }));
   }
-  sortBy(array: object[], property: string): void {
+  sortByNumber(array: object[], property: string): void {
     array.sort((a, b) => a[property] > b[property] ? 1 : -1);
   }
-  sorted(property: string): void {
-    this.pressSort += 1;
-    this.sortBy(this.students, property);
-    if (this.pressSort % 2 === 0) {
-      this.students.reverse();
+  sortingByNumberProperty(property: string): void {
+    this.countSortClicks += 1;
+    this.sortByNumber(this.studentsList, property);
+    if (this.countSortClicks % 2 === 0) {
+      this.studentsList.reverse();
     }
   }
   sortedByYear(property: string): void {
-    this.pressSort += 1;
+    this.countSortClicks += 1;
     const now = new Date();
     now.setMonth(now.getMonth() + 1);
-    this.sortByYear(this.students, now.getFullYear(), property);
-    if (this.pressSort % 2 === 0) {
-      this.students.reverse();
+    this.sortByYear(this.studentsList, now.getFullYear(), property);
+    if (this.countSortClicks % 2 === 0) {
+      this.studentsList.reverse();
     }
   }
   sortedByBirth(property: string): void {
-    this.pressSort += 1;
-    this.sortByBirth(this.students, property);
-    if (this.pressSort % 2 === 0) {
-      this.students.reverse();
+    this.countSortClicks += 1;
+    this.sortByBirth(this.studentsList, property);
+    if (this.countSortClicks % 2 === 0) {
+      this.studentsList.reverse();
     }
   }
-  remove__btn(record_book_number: number, name: string): void {
-    this.popup = true;
-    this.removing__number = record_book_number;
-    this.removing__name = name;
+  startRemoving(recordBookNumber: number, name: string): void {
+    this.showPopup = true;
+    this.studentRemovingNumber = recordBookNumber;
+    this.studentRemovingName = name;
   }
-  getConfirm(answer: boolean): void {
-    this.popup = false;
-    this.confirm = answer;
-    if (this.confirm) { this.removeFromStudents(this.removing__number); }
+  confirmationReceived(answerIsYes: boolean): void {
+    this.showPopup = false;
+    if (answerIsYes) { this.removeStudent(this.studentRemovingNumber); }
   }
-  removeFromStudents(id: number): void {
-    if (this.confirm) {
-      for (const student of this.students) {
-        if (student.record_book_number === id) {
-          this.students.splice(this.students.indexOf(student), 1);
-          return;
-        }
+  removeStudent(id: number): void {
+    for (const student of this.studentsList) {
+      if (student.recordBookNumber === id) {
+        this.studentsList.splice(this.studentsList.indexOf(student), 1);
+        return;
       }
     }
   }

@@ -1,31 +1,29 @@
 <div class="panel">
   <div class="panel__settings">
     <span>Внешний вид таблицы:</span>
-    <label><input type="checkbox" (click)="change()">Подсветка оценок</label>
-    <label><input type="checkbox" (click)="removeMode(mode_isOff)">Кнопки удаления</label>
+    <label><input type="checkbox" (click)="toggleHighlightMode()">Подсветка оценок</label>
+    <label><input type="checkbox" (click)="toggleRemoveMode()">Кнопки удаления</label>
   </div>
   <div class="panel__filtrationByDate">
     <span>Фильтровать по дате рождения:</span>
     <label>
-      <input type="date" [(ngModel)]="date_interval_left" (change)="getDateInterval(date_interval_left, date_interval_right)">
-      <input type="date" [(ngModel)]="date_interval_right" (change)="getDateInterval(date_interval_left, date_interval_right)">
+      <input type="date" [(ngModel)]="dateBorderLeft">
+      <input type="date" [(ngModel)]="dateBorderRight">
     </label>
   </div>
   <div class="panel__filtrationByMark">
-    <span>Средний балл: от {{mark_interval_left}} до {{mark_interval_right}}</span>
+    <span>Средний балл: от {{markBorderLeft}} до {{markBorderRight}}</span>
     <label>
-      <input type="range" min="0" max="5" (input)="getMarkInterval(mark_interval_left, mark_interval_right)"
-             [(ngModel)]="mark_interval_left">
-      <input type="range" min="0" max="5" (input)="getMarkInterval(mark_interval_left, mark_interval_right)"
-             [(ngModel)]="mark_interval_right">
+      <input type="range" min="0" max="5" [(ngModel)]="markBorderLeft">
+      <input type="range" min="0" max="5" [(ngModel)]="markBorderRight">
     </label>
   </div>
   <div class="panel__filtrationReset">
     <span>Сбросить фильтр</span>
-    <button (click)="resetFiltration()">✕</button>
+    <button (click)="resetAllFiltration()">✕</button>
   </div>
   <label class="search">
     <span>Поиск студента:</span>
-    <input type="search" (input)="searching(request)" [(ngModel)]="request">
+    <input type="search" (input)="startSearching(searchRequest)" [(ngModel)]="searchRequest">
   </label>
 </div>

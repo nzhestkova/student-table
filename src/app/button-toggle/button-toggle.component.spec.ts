@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ButtonToggleComponent } from './button-toggle.component';
+import { ButtonToggleComponent } from "./button-toggle.component";
 
-describe('ButtonToggleComponent', () => {
+describe("ButtonToggleComponent", () => {
   let component: ButtonToggleComponent;
   let fixture: ComponentFixture<ButtonToggleComponent>;
 
@@ -19,7 +19,7 @@ describe('ButtonToggleComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

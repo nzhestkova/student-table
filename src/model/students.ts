@@ -1,13 +1,13 @@
 class Students {
-  record_book_number: number;
+  recordBookNumber: number;
   name: string;
   group: string;
   course: number;
   mark: number;
   birth: Date;
-  constructor(record_book_number: number, name: string, group: string,
+  constructor(recordBookNumber: number, name: string, group: string,
               course: number, mark: number, birth: Date) {
-    this.record_book_number = record_book_number;
+    this.recordBookNumber = recordBookNumber;
     this.name = name;
     this.group = group;
     this.course = course;
@@ -18,7 +18,7 @@ class Students {
 let current_number: number = 154321;
 export let students = [
   new Students(current_number++, "Ivanov I.I.", "16-AS",
-    3, 3.5, new Date(1995, 1, 1)),
+    3, 3.5, new Date(1995, 12, 1)),
   new Students(current_number++, "Not Ivanov NI.NI.", "16-AS",
     1, 4.5, new Date(2001, 11, 6)),
   new Students(current_number++, "Bad Student", "16-AS",

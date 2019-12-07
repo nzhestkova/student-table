@@ -6,41 +6,50 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
   styleUrls: ["./button-toggle.component.css"]
 })
 export class ButtonToggleComponent implements OnInit {
-  @Output() GetMarkInterval = new EventEmitter();
-  @Output() GetDateInterval = new EventEmitter();
-  @Output() RemoveMode = new EventEmitter();
-  @Output() Input = new EventEmitter();
-  @Output() Changed = new EventEmitter();
-  request: string;
-  mode_isOff = true;
-  date_interval_left: string;
-  date_interval_right: string;
-  mark_interval_left = 0;
-  mark_interval_right = 5;
-  searching(increased: string): void {
-    this.Input.emit(increased);
+  get markBorderRight(): number { return this._markBorderRight; }
+  set markBorderRight(value: number) {
+    this._markBorderRight = value;
+    this.markIntervalSet.emit([this.markBorderLeft, value]);
   }
-  change(): void {
-    this.Changed.emit();
+  get markBorderLeft(): number { return this._markBorderLeft; }
+  set markBorderLeft(value: number) {
+    this._markBorderLeft = value;
+    this.markIntervalSet.emit([value, this.markBorderRight]);
   }
-  removeMode(mode: boolean): void {
-    this.mode_isOff = !this.mode_isOff;
-    this.RemoveMode.emit(mode);
+  get dateBorderLeft(): string { return this._dateBorderLeft; }
+  set dateBorderLeft(value: string) {
+    this._dateBorderLeft = value;
+    this.dateIntervalSet.emit([value, this._dateBorderRight]);
   }
-  getDateInterval(left: string, right: string): void {
-    this.GetDateInterval.emit([left, right]);
+  get dateBorderRight(): string { return this._dateBorderRight; }
+  set dateBorderRight(value: string) {
+    this._dateBorderRight = value;
+    this.dateIntervalSet.emit([this.dateBorderLeft, value]);
   }
-  getMarkInterval(left: number, right: number): void {
-    console.log(`${left} + ${right}`);
-    this.GetMarkInterval.emit([left, right]);
+  private _dateBorderLeft: string;
+  private _dateBorderRight: string;
+  private _markBorderLeft = 0;
+  private _markBorderRight = 5;
+  @Output() markIntervalSet = new EventEmitter();
+  @Output() dateIntervalSet = new EventEmitter();
+  @Output() removeModeToggle = new EventEmitter();
+  @Output() searchRequestInput = new EventEmitter();
+  @Output() markHighlightToggle = new EventEmitter();
+  searchRequest: string;
+  startSearching(increased: string): void {
+    this.searchRequestInput.emit(increased);
   }
-  resetFiltration(): void {
-    this.mark_interval_left = 0;
-    this.mark_interval_right = 5;
-    this.date_interval_left = "";
-    this.date_interval_right = "";
-    this.getDateInterval(this.date_interval_left, this.date_interval_right);
-    this.getMarkInterval(this.mark_interval_left, this.mark_interval_right);
+  toggleHighlightMode(): void {
+    this.markHighlightToggle.emit();
+  }
+  toggleRemoveMode(): void {
+    this.removeModeToggle.emit();
+  }
+  resetAllFiltration(): void {
+    this.markBorderLeft = 0;
+    this.markBorderRight = 5;
+    this.dateBorderLeft = "";
+    this.dateBorderRight = "";
   }
   ngOnInit(): void {
   }

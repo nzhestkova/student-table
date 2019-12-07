@@ -1,34 +1,35 @@
 <table class="table">
-  <thead class="line__main">
+  <thead>
   <tr>
-    <th class="cell__numbers" (click)="sorted('record_book_number')">№</th>
-    <th class="cell__string" (click)="sorted('name')">ФИО</th>
-    <th class="cell__string" (click)="sorted('course')">Группа, курс</th>
+    <th class="cell__numbers" (click)="sortingByNumberProperty('record_book_number')">№</th>
+    <th class="cell__string" (click)="sortingByNumberProperty('name')">ФИО</th>
+    <th class="cell__string" (click)="sortingByNumberProperty('course')">Группа, курс</th>
     <th class="cell__string" (click)="sortedByBirth('birth')">День рождения</th>
     <th class="cell__numbers" (click)="sortedByYear('birth')">Возраст</th>
-    <th class="cell__numbers" (click)="sorted('mark')">Средний балл</th>
+    <th class="cell__numbers" (click)="sortingByNumberProperty('mark')">Средний балл</th>
   </tr>
   </thead>
   <tbody>
   <tr [ngClass]="{
-       line: true,
-       line__bad: isBad(student.mark),
-       line__good: isGood(student.mark),
-       line__medium: isMedium(student.mark),
-       line__noMark: markMode,
-       line__hidden: !contain(student.name, request) || !filtrationByDate(student.birth, dateFiltrationInterval) || !filtrationByMark(student.mark, markFiltrationInterval)}"
-      *ngFor="let student of students;">
-    <td class="cell__numbers"> {{student.record_book_number}} </td>
+       mark__bad: isBadMark(student.mark),
+       mark__good: isGoodMark(student.mark),
+       mark__medium: isMediumMark(student.mark),
+       mark__none: highlightMarkMode,
+       hidden: !nameContainRequest(student.name, searchRequest) ||
+       !filtrationByDate(student.birth, dateFiltrationBorders) ||
+       !filtrationByMark(student.mark, markFiltrationBorders)}"
+      *ngFor="let student of studentsList;">
+    <td class="cell__numbers"> {{student.recordBookNumber}} </td>
     <td> {{student.name}} </td>
     <td> {{student.group}}, {{student.course}} </td>
     <td> {{student.birth.getDate()}} {{ parseMonth(student.birth.getMonth()) }} </td>
-    <td class="cell__numbers"> {{currentAge(student.birth.getFullYear())}} </td>
+    <td class="cell__numbers"> {{studentCurrentAge(student.birth.getFullYear())}} </td>
     <td class="cell__numbers"> {{student.mark}} </td>
-    <td [ngClass]="{hidden: !removingMode}">
-      <button class="btn__remove" (click)="remove__btn(student.record_book_number, student.name)">✕</button>
+    <td [ngClass]="{hidden: removingModeOff}">
+      <button (click)="startRemoving(student.recordBookNumber, student.name)">✕</button>
     </td>
   </tr>
   </tbody>
 </table>
-<app-popup *ngIf="popup" (Confirm)="getConfirm($event)"
-           [student__name]="removing__name"></app-popup>
+<app-popup *ngIf="showPopup" (answerInput)="confirmationReceived($event)"
+           [studentName]="studentRemovingName"></app-popup>

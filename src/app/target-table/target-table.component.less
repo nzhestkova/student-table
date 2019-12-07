@@ -3,28 +3,7 @@
   font-family: "Book Antiqua", serif;
   padding: 10px;
   width: 100%;
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-}
-.line {
-  &__bad {
-    border-collapse: collapse;
-    border: 1px solid grey;
-    background: rgba(255,85,62,0.3);
-  }
-  &__good {
-    background: rgba(17,108,34,0.3);
-  }
-  &__medium {
-    background: rgba(254,255,24,0.3);
-  }
-  &__noMark {
-    background: none;
-  }
-  &__hidden {
-    display: none;
-  }
+  border: 1px solid black;
 }
 th {
   position: relative;
@@ -45,13 +24,31 @@ th {
     }
   }
 }
-.cell__numbers {
-  text-align: center;
+.mark {
+  &__bad {
+    border-collapse: collapse;
+    border: 1px solid grey;
+    background: rgba(255,85,62,0.3);
+  }
+  &__good {
+    background: rgba(17,108,34,0.3);
+  }
+  &__medium {
+    background: rgba(254,255,24,0.3);
+  }
+  &__none {
+    background: none;
+  }
 }
-.cell__string {
-  text-align: left;
+.cell {
+  &__numbers {
+    text-align: center;
+  }
+  &__string {
+    text-align: left;
+  }
 }
-.btn__remove {
+button {
   width: 100%;
   font-size: 1em;
   text-align: center;
@@ -69,4 +66,3 @@ th {
 .hidden {
   display: none;
 }
-

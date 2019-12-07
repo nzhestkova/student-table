@@ -6,25 +6,19 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  mode = true;
+  private _dateFiltrationBorders: string[];
+  set dateFiltrationBorders(interval: string[]) { this._dateFiltrationBorders = interval; }
+  get dateFiltrationBorders(): string[] { return this._dateFiltrationBorders; }
+  private _markFiltrationBorders: number[];
+  set markFiltrationBorders(value: number[]) { this._markFiltrationBorders = value; }
+  get markFiltrationBorders(): number[] { return this._markFiltrationBorders; }
+  highlightMarkMode = true;
+  removingModeOff = true;
   searchRequest: string;
-  removingMode: boolean;
-  dateFiltrationInterval: string[];
-  markFiltrationInterval: number[];
-  onChange(): void {
-    this.mode = !this.mode;
+  toggleHighlightMode(): void {
+    this.highlightMarkMode = !this.highlightMarkMode;
   }
-  search(line: string): void {
-    this.searchRequest = line;
-  }
-  isRemoving(mode: boolean): void {
-    this.removingMode = mode;
-  }
-  set_FiltrationInterval(interval: string[]): void {
-    this.dateFiltrationInterval = interval;
-  }
-  set_MarkFiltrationInterval(interval: number[]): void {
-    console.log(interval);
-    this.markFiltrationInterval = [+interval[0], +interval[1]];
+  toggleRemoveMode(): void {
+    this.removingModeOff = !this.removingModeOff;
   }
 }

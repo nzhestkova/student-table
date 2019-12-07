@@ -3,26 +3,7 @@
   font-family: "Book Antiqua", serif;
   padding: 10px;
   width: 100%;
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-}
-.line__bad {
-  border-collapse: collapse;
-  border: 1px solid grey;
-  background: rgba(255, 85, 62, 0.3);
-}
-.line__good {
-  background: rgba(17, 108, 34, 0.3);
-}
-.line__medium {
-  background: rgba(254, 255, 24, 0.3);
-}
-.line__noMark {
-  background: none;
-}
-.line__hidden {
-  display: none;
+  border: 1px solid black;
 }
 th {
   position: relative;
@@ -41,13 +22,27 @@ th::after {
 th:hover::after {
   visibility: visible;
 }
+.mark__bad {
+  border-collapse: collapse;
+  border: 1px solid grey;
+  background: rgba(255, 85, 62, 0.3);
+}
+.mark__good {
+  background: rgba(17, 108, 34, 0.3);
+}
+.mark__medium {
+  background: rgba(254, 255, 24, 0.3);
+}
+.mark__none {
+  background: none;
+}
 .cell__numbers {
   text-align: center;
 }
 .cell__string {
   text-align: left;
 }
-.btn__remove {
+button {
   width: 100%;
   font-size: 1em;
   text-align: center;
@@ -55,10 +50,10 @@ th:hover::after {
   border: none;
   outline: none;
 }
-.btn__remove:hover {
+button:hover {
   background: brown;
 }
-.btn__remove:active {
+button:active {
   background: black;
   color: white;
 }
