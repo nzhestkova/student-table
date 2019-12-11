@@ -35,7 +35,11 @@ export class ButtonToggleComponent implements OnInit {
   @Output() removeModeToggle = new EventEmitter();
   @Output() searchRequestInput = new EventEmitter();
   @Output() markHighlightToggle = new EventEmitter();
+  @Output() creatingModeToggle = new EventEmitter();
   searchRequest: string;
+  startCreating(): void {
+    this.creatingModeToggle.emit();
+  }
   startSearching(increased: string): void {
     this.searchRequestInput.emit(increased);
   }

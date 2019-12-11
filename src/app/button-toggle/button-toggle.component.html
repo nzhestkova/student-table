@@ -1,8 +1,11 @@
 <div class="panel">
+  <div class="panel__new_student">
+    <button (click)="startCreating()"><span>+</span></button>
+  </div>
   <div class="panel__settings">
     <span>Внешний вид таблицы:</span>
     <label><input type="checkbox" (click)="toggleHighlightMode()">Подсветка оценок</label>
-    <label><input type="checkbox" (click)="toggleRemoveMode()">Кнопки удаления</label>
+    <label><input type="checkbox" (click)="toggleRemoveMode()">Редактирование</label>
   </div>
   <div class="panel__filtrationByDate">
     <span>Фильтровать по дате рождения:</span>

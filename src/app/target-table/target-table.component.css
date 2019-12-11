@@ -23,8 +23,6 @@ th:hover::after {
   visibility: visible;
 }
 .mark__bad {
-  border-collapse: collapse;
-  border: 1px solid grey;
   background: rgba(255, 85, 62, 0.3);
 }
 .mark__good {
@@ -56,6 +54,19 @@ button:hover {
 button:active {
   background: black;
   color: white;
+}
+.button_edit {
+  background: rgba(44, 176, 255, 0.85);
+}
+.button_edit:hover {
+  background: rgba(44, 176, 255, 0.5);
+}
+.button_edit:active {
+  color: black;
+  background: white;
+}
+.edit {
+  display: flex;
 }
 .hidden {
   display: none;

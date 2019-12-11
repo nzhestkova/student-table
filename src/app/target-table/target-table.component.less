@@ -26,8 +26,6 @@ th {
 }
 .mark {
   &__bad {
-    border-collapse: collapse;
-    border: 1px solid grey;
     background: rgba(255,85,62,0.3);
   }
   &__good {
@@ -63,6 +61,20 @@ button {
     color: white;
   }
 }
+.button_edit {
+  background: rgba(44, 176, 255, 0.85);
+  &:hover {
+    background: rgba(44, 176, 255, 0.5);
+  }
+  &:active {
+    color: black;
+    background: white;
+  }
+}
+.edit {
+  display: flex;
+}
 .hidden {
   display: none;
 }
+

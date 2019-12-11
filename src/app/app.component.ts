@@ -15,10 +15,14 @@ export class AppComponent {
   highlightMarkMode = true;
   removingModeOff = true;
   searchRequest: string;
+  showWindowCreate = false;
   toggleHighlightMode(): void {
     this.highlightMarkMode = !this.highlightMarkMode;
   }
   toggleRemoveMode(): void {
     this.removingModeOff = !this.removingModeOff;
+  }
+  toggleCreatingMode(): void {
+    this.showWindowCreate = !this.showWindowCreate;
   }
 }

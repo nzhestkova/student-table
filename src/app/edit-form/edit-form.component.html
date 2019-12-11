@@ -1,0 +1,50 @@
+<div class="popup__window">
+  <div class="form__content">
+    <span></span>
+    <form novalidate [formGroup]="newStudentForm" (input)="toggleSubmitButton()" (ngSubmit)="submitButtonPressed()">
+      <label>
+        <input formControlName="studentRecordBookNumber">
+      </label>
+      <div formGroupName="studentFullName">
+        <label [ngClass]="{invalid: newStudentForm.controls['studentFullName'].get('studentSurname').invalid
+       && newStudentForm.controls['studentFullName'].get('studentSurname').touched,
+       correct:  newStudentForm.controls['studentFullName'].get('studentSurname').valid}"
+               class="form__content__field">
+          <span>Фамилия:</span>
+          <input formControlName="studentSurname">
+        </label>
+        <label class="form__content__field">
+          <span>Имя:</span>
+          <input formControlName="studentName">
+        </label>
+        <label class="form__content__field">
+          <span>Отчество:</span>
+          <input formControlName="studentSecondName">
+        </label>
+      </div>
+      <label class="form__content__field">
+        <span>Группа:</span>
+        <input formControlName="studentGroup">
+      </label>
+      <label class="form__content__field">
+        <span>Курс:</span>
+        <input formControlName="studentCourse">
+      </label>
+      <label class="form__content__field">
+        <span>Дата рождения:</span>
+        <input type="date" formControlName="studentBirth">
+      </label>
+      <label class="form__content__field">
+        <span>Средний балл:</span>
+        <input formControlName="studentMark">
+      </label>
+      <input type="submit" formControlName="submitButton">
+      <button type="reset" (click)="resetForm()">✕</button>
+      <button type="button" (click)="cancelButtonPressed()">Отмена</button>
+    </form>
+  </div>
+  <div style="position: absolute; bottom: 20%; right: 10%">Name form now is {{newStudentForm.controls['studentFullName'].status}}</div>
+  <div style="position: absolute; bottom: 15%; right: 10%">Field birth now is {{newStudentForm.controls['studentBirth'].status}}</div>
+  <div style="position: absolute; bottom: 10%; right: 10%">Field group now is {{newStudentForm.controls['studentGroup'].status}}</div>
+  <div style="position: absolute; bottom: 5%; right: 10%">All form now is {{newStudentForm.status}}</div>
+</div>

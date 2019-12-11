@@ -1,0 +1,53 @@
+.popup__window {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.form__content {
+  margin-top: 5%;
+  margin-left: 35%;
+  margin-right: 35%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background: #bcbba9;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #000;
+}
+.form__content input {
+  outline: none;
+  font-size: 1em;
+  text-align: center;
+}
+.form__content__field {
+  display: flex;
+}
+.form__content__field span {
+  flex-grow: 1;
+  text-align: right;
+}
+.form__content .invalid input {
+  border-color: rgba(255, 0, 0, 0.2);
+  background: rgba(255, 0, 0, 0.2);
+}
+.form__content .invalid::after {
+  content: "!";
+  color: #d00000;
+  position: absolute;
+  right: 1%;
+}
+.form__content .correct input {
+  border-color: rgba(2, 255, 31, 0.2);
+  background: rgba(2, 255, 31, 0.2);
+}
+.form__content .correct::after {
+  content: "✓";
+  color: #00d002;
+  position: absolute;
+  right: 1%;
+}
+/*# sourceMappingURL=edit-form.component.css.map */

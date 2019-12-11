@@ -25,11 +25,20 @@
     <td> {{student.birth.getDate()}} {{ parseMonth(student.birth.getMonth()) }} </td>
     <td class="cell__numbers"> {{studentCurrentAge(student.birth.getFullYear())}} </td>
     <td class="cell__numbers"> {{student.mark}} </td>
-    <td [ngClass]="{hidden: removingModeOff}">
-      <button (click)="startRemoving(student.recordBookNumber, student.name)">✕</button>
+    <td [ngClass]="{edit: true, hidden: removingModeOff}">
+      <button class="button_edit" (click)="startEditStudentInformation(student)">✎</button>
+      <button class="button_remove" (click)="startRemoving(student.recordBookNumber, student.name)">✕</button>
     </td>
   </tr>
   </tbody>
 </table>
 <app-popup *ngIf="showPopup" (answerInput)="confirmationReceived($event)"
            [studentName]="studentRemovingName"></app-popup>
+<app-edit-form *ngIf="showWindowCreate || showWindowEdit"
+               [showWindowCreate]="showWindowCreate"
+               [showWindowEdit]="showWindowEdit"
+               [editThisRecord]="editThisRecord"
+               (createNewRecord)="addNewRecord($event)"
+               (updateRecord)="updateRecord($event)"
+               (cancelCreating)="cancelPressed()"
+               (cancelEdit)="cancelPressed()"></app-edit-form>

@@ -3,12 +3,15 @@
                      (markHighlightToggle)="toggleHighlightMode()"
                      (dateIntervalSet)="dateFiltrationBorders = $event"
                      (markIntervalSet)="markFiltrationBorders = $event"
+                     (creatingModeToggle)="toggleCreatingMode()"
                      (searchRequestInput)="searchRequest = $event">
   </app-button-toggle>
   <app-target-table [highlightMarkMode]="highlightMarkMode"
                     [searchRequest]="searchRequest"
                     [removingModeOff]="removingModeOff"
+                    [showWindowCreate]="showWindowCreate"
                     [dateFiltrationBorders]="dateFiltrationBorders"
-                    [markFiltrationBorders]="markFiltrationBorders">
+                    [markFiltrationBorders]="markFiltrationBorders"
+                    (creatingTurnOff)="toggleCreatingMode()">
   </app-target-table>
 </div>

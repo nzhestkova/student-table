@@ -1,4 +1,4 @@
-class Students {
+export class Students {
   recordBookNumber: number;
   name: string;
   group: string;

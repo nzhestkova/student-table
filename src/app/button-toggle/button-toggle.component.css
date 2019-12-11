@@ -4,6 +4,36 @@
   padding-top: 0.5em;
   padding-bottom: 1em;
 }
+.panel__new_student {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  padding-right: 1em;
+}
+.panel__new_student button {
+  margin: 0.5em;
+  flex-grow: 1;
+  outline: none;
+  border: 1px rgba(14, 66, 24, 0.5) solid;
+  background: #004000;
+  color: white;
+  display: flex;
+}
+.panel__new_student button span {
+  flex-grow: 1;
+  margin: auto;
+  font-family: "Times New Roman", serif;
+  font-size: 2.2em;
+  text-align: center;
+}
+.panel__new_student button:hover {
+  border: 1px #0e4218 solid;
+}
+.panel__new_student button:active {
+  background: white;
+  color: green;
+}
 .panel__settings {
   flex-grow: 1;
   flex-shrink: 1;

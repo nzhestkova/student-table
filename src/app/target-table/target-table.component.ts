@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { students } from "src/model/students";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { students, Students } from "src/model/students";
 
 @Component({
   selector: "app-target-table",
@@ -12,11 +12,15 @@ export class TargetTableComponent implements OnInit {
   @Input() highlightMarkMode: boolean;
   @Input() searchRequest: string;
   @Input() removingModeOff: boolean;
+  @Input() showWindowCreate: boolean;
+  showWindowEdit = false;
+  @Output() creatingTurnOff = new EventEmitter();
   showPopup: boolean;
   studentRemovingNumber: number;
   studentRemovingName: string;
   studentsList = students;
   countSortClicks = 0;
+  editThisRecord: object;
   studentCurrentAge(year: number): number {
     const now = new Date();
     return now.getFullYear() - year;
@@ -133,6 +137,32 @@ export class TargetTableComponent implements OnInit {
       if (mark >= interval[0]) { return true; }
     }
     return false;
+  }
+  startEditStudentInformation(record: Students): void {
+    this.showWindowEdit = !this.showWindowEdit;
+    this.editThisRecord = record;
+  }
+  addNewRecord(newStudent: object): void {
+    this.studentsList.push(this.createNewRecord(newStudent));
+  }
+  createNewRecord(newStudent: object): Students {
+    const studentFullName = newStudent["studentFullName"];
+    const concatName = `${studentFullName["studentSurname"]} ${studentFullName["studentName"]} ${studentFullName["studentSecondName"]}`;
+    return new Students(0, concatName, newStudent["studentGroup"],
+      newStudent["studentCourse"], newStudent["studentMark"], new Date(newStudent["studentBirth"]));
+  }
+  updateRecord(newRecord: object): void {
+    const currentRecord = students.find((function (item: object): object {
+      if (item["recordBookNumber"] === newRecord["studentRecordBookNumber"]) { return item; }
+    }));
+    const studentFullName = newRecord["studentFullName"];
+    const concatName = `${studentFullName["studentSurname"]} ${studentFullName["studentName"]} ${studentFullName["studentSecondName"]}`;
+    students[students.indexOf(currentRecord)] = new Students(newRecord["studentRecordBookNumber"], concatName, newRecord["studentGroup"],
+      newRecord["studentCourse"], newRecord["studentMark"], new Date(newRecord["studentBirth"]));
+  }
+  cancelPressed(): void {
+    if (this.showWindowCreate) { this.creatingTurnOff.emit(); }
+    if (this.showWindowEdit) { this.showWindowEdit = !this.showWindowEdit; }
   }
   ngOnInit(): void {
   }
