@@ -12,10 +12,9 @@ export class EditFormComponent implements OnInit {
   @Input() set editThisRecord(value: object) {
     if (value) {
       this.newStudentForm.get("studentRecordBookNumber").setValue(value["recordBookNumber"]);
-      const name = this.parseFullName(value["name"]);
-      this.newStudentForm.get("studentFullName.studentSurname").setValue(name[0]);
-      this.newStudentForm.get("studentFullName.studentName").setValue(name[1]);
-      this.newStudentForm.get("studentFullName.studentSecondName").setValue(name[2]);
+      this.newStudentForm.get("studentFullName.studentSurname").setValue(value["surname"]);
+      this.newStudentForm.get("studentFullName.studentName").setValue(value["name"]);
+      this.newStudentForm.get("studentFullName.studentSecondName").setValue(value["secondName"]);
       this.newStudentForm.controls["studentGroup"].setValue(value["group"]);
       this.newStudentForm.controls["studentCourse"].setValue(value["course"]);
       this.newStudentForm.controls["studentBirth"].setValue(this.parseBirthDate(value["birth"]));
@@ -23,16 +22,15 @@ export class EditFormComponent implements OnInit {
     }
     this._editThisRecord = value;
   }
-  constructor() {
-    this.newStudentForm.reset();
-    this.newStudentForm.controls["submitButton"].disable();
-  }
   @Output() createNewRecord = new EventEmitter();
   @Output() updateRecord = new EventEmitter();
   @Output() cancelCreating = new EventEmitter();
   @Output() cancelEdit = new EventEmitter();
   @Input() showWindowCreate: boolean;
   @Input() showWindowEdit: boolean;
+  availableSecondNameField = true;
+  studentNumber: number;
+  currentYear = new Date().getFullYear();
   private _editThisRecord: object;
   newStudentForm = new FormGroup({
     studentRecordBookNumber: new FormControl(),
@@ -40,7 +38,7 @@ export class EditFormComponent implements OnInit {
       studentSurname: new FormControl("", [
         Validators.required,
         Validators.minLength(2),
-        Validators.pattern(/^[A-Za-zА-Яа-я]*$/),
+        Validators.pattern(/^[A-Za-zА-Яа-я]+$/),
       ]),
       studentName: new FormControl("", [
         Validators.required,
@@ -48,45 +46,46 @@ export class EditFormComponent implements OnInit {
       ]),
       studentSecondName: new FormControl("", [
         Validators.required,
-        Validators.pattern(/^[A-Za-zА-Яа-я]*$/)]),
+        Validators.pattern(/^[A-Za-zА-Яа-я]*$/),
+      ]),
+      haveSecondName: new FormControl(),
     }, {validators: forbidFieldsWithSameContent()}),
     studentGroup: new FormControl("", [
       Validators.required,
-      Validators.pattern(/^[0-9]+-[a-zа-я]+$/i),
+      Validators.pattern(/^\S+$/),
     ]),
-    studentCourse: new FormControl(""),
+    studentCourse: new FormControl("", [
+      Validators.required,
+      Validators.min(1),
+      Validators.max(6),
+      Validators.pattern(/^[0-9]+$/),
+    ]),
     studentBirth: new FormControl("", [
       Validators.required,
       forbidYoungStudents(),
     ]),
     studentMark: new FormControl("", [
       Validators.required,
-      Validators.min(1),
+      Validators.min(0),
       Validators.max(5),
+      Validators.pattern(/^[0-9]+$/),
     ]),
-    submitButton: new FormControl({disabled: true}),
+    submitButton: new FormControl(),
   });
+  toggleSecondNameField(): void {
+    this.availableSecondNameField = !this.availableSecondNameField;
+    if (this.availableSecondNameField) {
+      this.newStudentForm.get("studentFullName.studentSecondName").enable();
+      return;
+    }
+    this.newStudentForm.get("studentFullName.studentSecondName").disable();
+  }
   parseBirthDate(date: Date): string {
     const year = date.getFullYear() < 10 ? `0${date.getFullYear()}` : `${date.getFullYear()}`;
     let month: string;
     date.getMonth() ? (month = date.getMonth() < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`) : month = `12`;
     const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
     return `${year}-${month}-${day}`;
-  }
-  parseFullName(fullName: string): string[] { // поменять в модели поле name на 3 поля
-    return fullName.split(" ");
-  }
-  submitButtonPressed(): void {
-    if (this.showWindowCreate) { this.createNewRecord.emit(this.newStudentForm.value); }
-    if (this.showWindowEdit) { this.updateRecord.emit(this.newStudentForm.value); }
-  }
-  cancelButtonPressed(): void {
-    if (this.showWindowCreate) { this.cancelCreating.emit(); }
-    if (this.showWindowEdit) { this.cancelEdit.emit(); }
-  }
-  resetForm(): void {
-    this.newStudentForm.reset();
-    this.newStudentForm.controls["submitButton"].setValue("Submit");
   }
   toggleSubmitButton(): void {
     if (this.newStudentForm.valid) {
@@ -95,6 +94,43 @@ export class EditFormComponent implements OnInit {
     }
     this.newStudentForm.controls["submitButton"].disable();
   }
+  submitButtonPressed(): void {
+    if (this.showWindowCreate) { this.createNewRecord.emit(this.newStudentForm.getRawValue()); }
+    if (this.showWindowEdit) { this.updateRecord.emit(this.newStudentForm.getRawValue()); }
+    this.newStudentForm.disable();
+  }
+  cancelButtonPressed(): void {
+    if (this.showWindowCreate) { this.cancelCreating.emit(); }
+    if (this.showWindowEdit) { this.cancelEdit.emit(); }
+  }
+  resetForm(): void {
+    this.newStudentForm.reset();
+    this.newStudentForm.controls["submitButton"].setValue("Сохранить");
+  }
+  isInvalidField(fieldName: string): boolean {
+    return this.newStudentForm.get(fieldName).invalid && this.newStudentForm.get(fieldName).dirty;
+  }
+  isValidField(fieldName: string): boolean {
+    return this.newStudentForm.get(fieldName).valid && this.newStudentForm.get(fieldName).dirty;
+  }
+  formHaveEmptyFields(): boolean {
+    return !(this.newStudentForm.get("studentFullName.studentSurname").value &&
+      this.newStudentForm.get("studentFullName.studentName").value &&
+      (this.newStudentForm.get("studentFullName.studentSecondName").value ||
+        this.newStudentForm.get("studentFullName.studentSecondName").disabled) &&
+      this.newStudentForm.get("studentGroup").value &&
+      this.newStudentForm.get("studentBirth").value &&
+      this.newStudentForm.get("studentMark").value);
+  }
+  hasLengthError(): boolean {
+    if (this.newStudentForm.get("studentFullName.studentSurname").value) {
+      return this.newStudentForm.get("studentFullName.studentSurname").hasError("minlength");
+    }
+    return true;
+  }
   ngOnInit(): void {
+    if (this.showWindowCreate) { this.newStudentForm.reset(); }
+    this.newStudentForm.controls["submitButton"].disable();
+    this.newStudentForm.controls["submitButton"].setValue("Сохранить");
   }
 }

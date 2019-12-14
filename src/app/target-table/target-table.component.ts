@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { students, Students } from "src/model/students";
+import { current_number, students, Students } from "src/model/students";
+import { Sorting } from "./sorting";
 
 @Component({
   selector: "app-target-table",
@@ -18,9 +19,11 @@ export class TargetTableComponent implements OnInit {
   showPopup: boolean;
   studentRemovingNumber: number;
   studentRemovingName: string;
+  currentBookNumber = current_number;
   studentsList = students;
   countSortClicks = 0;
   editThisRecord: object;
+  sort = new Sorting();
   studentCurrentAge(year: number): number {
     const now = new Date();
     return now.getFullYear() - year;
@@ -53,43 +56,26 @@ export class TargetTableComponent implements OnInit {
   nameContainRequest(line: string, request: string): boolean {
     if (!request || request === " ") { return true; }
     return line.toLowerCase().includes(request.toLowerCase());
-
-  }
-  sortByBirth(array: object[], property: string): void {
-    array.sort((function(a: object, b: object): number {
-      if ((a[property].getMonth() > b[property].getMonth()) && (a[property].getDate() > b[property].getDate())) { return 1; }
-      if (a[property].getMonth() > b[property].getMonth()) { return 1; }
-      return -1;
-    }));
-  }
-  sortByYear(array: object[], now: number, property: string): void {
-    array.sort((function(a: object, b: object): number {
-      if ((now - a[property].getFullYear()) > (now - b[property].getFullYear())) { return 1; }
-      return -1;
-    }));
-  }
-  sortByNumber(array: object[], property: string): void {
-    array.sort((a, b) => a[property] > b[property] ? 1 : -1);
   }
   sortingByNumberProperty(property: string): void {
     this.countSortClicks += 1;
-    this.sortByNumber(this.studentsList, property);
+    this.sort.byNumberProperty(this.studentsList, property);
     if (this.countSortClicks % 2 === 0) {
       this.studentsList.reverse();
     }
   }
-  sortedByYear(property: string): void {
+  sortingByAge(property: string): void {
     this.countSortClicks += 1;
     const now = new Date();
     now.setMonth(now.getMonth() + 1);
-    this.sortByYear(this.studentsList, now.getFullYear(), property);
+    this.sort.byAge(this.studentsList, property);
     if (this.countSortClicks % 2 === 0) {
       this.studentsList.reverse();
     }
   }
-  sortedByBirth(property: string): void {
+  sortingByBirth(property: string): void {
     this.countSortClicks += 1;
-    this.sortByBirth(this.studentsList, property);
+    this.sort.byBirthDate(this.studentsList, property);
     if (this.countSortClicks % 2 === 0) {
       this.studentsList.reverse();
     }
@@ -147,17 +133,17 @@ export class TargetTableComponent implements OnInit {
   }
   createNewRecord(newStudent: object): Students {
     const studentFullName = newStudent["studentFullName"];
-    const concatName = `${studentFullName["studentSurname"]} ${studentFullName["studentName"]} ${studentFullName["studentSecondName"]}`;
-    return new Students(0, concatName, newStudent["studentGroup"],
-      newStudent["studentCourse"], newStudent["studentMark"], new Date(newStudent["studentBirth"]));
+    return new Students(this.currentBookNumber++, studentFullName["studentSurname"], studentFullName["studentName"],
+      studentFullName["studentSecondName"] ? studentFullName["studentSecondName"] : "",
+      newStudent["studentGroup"], newStudent["studentCourse"], newStudent["studentMark"], new Date(newStudent["studentBirth"]));
   }
   updateRecord(newRecord: object): void {
     const currentRecord = students.find((function (item: object): object {
-      if (item["recordBookNumber"] === newRecord["studentRecordBookNumber"]) { return item; }
-    }));
+      if (item["recordBookNumber"] === newRecord["studentRecordBookNumber"]) { return item; }}));
     const studentFullName = newRecord["studentFullName"];
-    const concatName = `${studentFullName["studentSurname"]} ${studentFullName["studentName"]} ${studentFullName["studentSecondName"]}`;
-    students[students.indexOf(currentRecord)] = new Students(newRecord["studentRecordBookNumber"], concatName, newRecord["studentGroup"],
+    students[students.indexOf(currentRecord)] = new Students(newRecord["studentRecordBookNumber"],
+      studentFullName["studentSurname"], studentFullName["studentName"],
+      studentFullName["studentSecondName"] ? studentFullName["studentSecondName"] : "", newRecord["studentGroup"],
       newRecord["studentCourse"], newRecord["studentMark"], new Date(newRecord["studentBirth"]));
   }
   cancelPressed(): void {

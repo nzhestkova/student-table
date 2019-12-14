@@ -1,50 +1,95 @@
 <div class="popup__window">
-  <div class="form__content">
-    <span></span>
-    <form novalidate [formGroup]="newStudentForm" (input)="toggleSubmitButton()" (ngSubmit)="submitButtonPressed()">
-      <label>
-        <input formControlName="studentRecordBookNumber">
-      </label>
-      <div formGroupName="studentFullName">
-        <label [ngClass]="{invalid: newStudentForm.controls['studentFullName'].get('studentSurname').invalid
-       && newStudentForm.controls['studentFullName'].get('studentSurname').touched,
-       correct:  newStudentForm.controls['studentFullName'].get('studentSurname').valid}"
-               class="form__content__field">
-          <span>Фамилия:</span>
-          <input formControlName="studentSurname">
-        </label>
-        <label class="form__content__field">
-          <span>Имя:</span>
-          <input formControlName="studentName">
-        </label>
-        <label class="form__content__field">
-          <span>Отчество:</span>
-          <input formControlName="studentSecondName">
-        </label>
+  <div class="popup__content">
+    <form class="form" novalidate [formGroup]="newStudentForm" (input)="toggleSubmitButton()" (ngSubmit)="submitButtonPressed()">
+      <div class="form-number">
+        <span>№ {{newStudentForm.get('studentRecordBookNumber').value}}</span>
       </div>
-      <label class="form__content__field">
-        <span>Группа:</span>
-        <input formControlName="studentGroup">
-      </label>
-      <label class="form__content__field">
-        <span>Курс:</span>
-        <input formControlName="studentCourse">
-      </label>
-      <label class="form__content__field">
-        <span>Дата рождения:</span>
-        <input type="date" formControlName="studentBirth">
-      </label>
-      <label class="form__content__field">
-        <span>Средний балл:</span>
-        <input formControlName="studentMark">
-      </label>
-      <input type="submit" formControlName="submitButton">
-      <button type="reset" (click)="resetForm()">✕</button>
-      <button type="button" (click)="cancelButtonPressed()">Отмена</button>
+      <div class="form-inputs">
+        <div class="form-inputs-personal">
+          <div class="form-inputs-personal-full_name" formGroupName="studentFullName">
+            <label class="form-inputs-field" [ngClass]="{invalid: isInvalidField('studentFullName.studentSurname'),
+                             correct: isValidField('studentFullName.studentSurname')}">
+              <span>Фамилия:</span>
+              <input [patternControl]="[newStudentForm.get('studentFullName.studentSurname'), 'warning']"
+                     formControlName="studentSurname">
+            </label>
+            <label class="form-inputs-field" [ngClass]="{invalid: isInvalidField('studentFullName.studentName'),
+                             correct: isValidField('studentFullName.studentName')}">
+              <span>Имя:</span>
+              <input [patternControl]="[newStudentForm.get('studentFullName.studentName'), 'warning']"
+                     formControlName="studentName">
+            </label>
+            <label class="form-inputs-field" [ngClass]="{invalid: isInvalidField('studentFullName.studentSecondName'),
+                             correct: isValidField('studentFullName.studentSecondName')}">
+              <span>Отчество:</span>
+              <input [patternControl]="[newStudentForm.get('studentFullName.studentSecondName'), 'warning']"
+                     formControlName="studentSecondName">
+              <label>
+                <input type="checkbox" formControlName="haveSecondName" (input)="toggleSecondNameField()">Нет отчества
+              </label>
+            </label>
+          </div>
+          <label class="form-inputs-field"
+                 [ngClass]="{invalid: isInvalidField('studentBirth'),
+                           correct: isValidField('studentBirth')}">
+            <span>Дата рождения:</span>
+            <input type="date" formControlName="studentBirth">
+          </label>
+        </div>
+        <div class="form-inputs-education">
+          <label class="form-inputs-field" [ngClass]="{invalid: isInvalidField('studentGroup'),
+                           correct: isValidField('studentGroup')}">
+            <span>Группа:</span>
+            <input [patternControl]="[newStudentForm.get('studentGroup'), 'warning']"
+                   formControlName="studentGroup">
+          </label>
+          <label class="form-inputs-field" [ngClass]="{invalid: isInvalidField('studentCourse'),
+                           correct: isValidField('studentCourse')}">
+            <span>Курс:</span>
+            <input [patternControl]="[newStudentForm.get('studentCourse'), 'warning']"
+                   formControlName="studentCourse">
+          </label>
+          <label class="form-inputs-field" [ngClass]="{invalid: isInvalidField('studentMark'),
+                           correct: isValidField('studentMark')}">
+            <span>Средний балл:</span>
+            <input [patternControl]="[newStudentForm.get('studentMark'), 'warning']"
+                   formControlName="studentMark">
+          </label>
+        </div>
+      </div>
+      <div class="form-buttons">
+        <input class="form-buttons-submit" type="submit" formControlName="submitButton">
+        <button type="button" (click)="resetForm()">Очистить</button>
+        <button class="form-buttons-cancel" type="button" (click)="cancelButtonPressed()">Отмена</button>
+      </div>
     </form>
+    <div class="validations">
+      <div class="validations-input__control">
+        <span>Проверка корректности:</span>
+        <div class="validations-input__control-field" [ngClass]="{error: formHaveEmptyFields(), without__error: !formHaveEmptyFields()}">
+          <span>все поля заполнены</span>
+        </div>
+        <div class="validations-input__control-field" [ngClass]="{error: hasLengthError(), without__error: !hasLengthError()}">
+          <span>не меньше 2-х букв в полях полного имени</span>
+        </div>
+        <div class="validations-input__control-field" [ngClass]="{error: newStudentForm.get('studentFullName').invalid, without__error: newStudentForm.get('studentFullName').valid}">
+          <span>фамилия, имя и отчество не совпадают</span>
+        </div>
+        <div class="validations-input__control-field" [ngClass]="{error: newStudentForm.get('studentBirth').invalid, without__error: newStudentForm.get('studentBirth').valid}">
+          <span>студент старше 10 лет</span>
+        </div>
+        <div class="validations-input__control-field" [ngClass]="{error: newStudentForm.get('studentCourse').invalid, without__error: newStudentForm.get('studentCourse').valid}">
+          <span>курс не больше 6-го и не меньше 1-го</span>
+        </div>
+        <div class="validations-input__control-field" [ngClass]="{error: newStudentForm.get('studentMark').invalid, without__error: newStudentForm.get('studentMark').valid}">
+          <span>средний балл в пределах от 0 до 5</span>
+        </div>
+      </div>
+      <div class="validations-warnings">
+        <div class="validations-warnings-field">
+          <span>В полях, отмеченных этим значком, есть недопустимые символы.</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div style="position: absolute; bottom: 20%; right: 10%">Name form now is {{newStudentForm.controls['studentFullName'].status}}</div>
-  <div style="position: absolute; bottom: 15%; right: 10%">Field birth now is {{newStudentForm.controls['studentBirth'].status}}</div>
-  <div style="position: absolute; bottom: 10%; right: 10%">Field group now is {{newStudentForm.controls['studentGroup'].status}}</div>
-  <div style="position: absolute; bottom: 5%; right: 10%">All form now is {{newStudentForm.status}}</div>
 </div>

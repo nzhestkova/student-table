@@ -15,8 +15,8 @@
   margin: 0.5em;
   flex-grow: 1;
   outline: none;
-  border: 1px rgba(14, 66, 24, 0.5) solid;
-  background: #004000;
+  border: 1px rgba(57, 82, 59, 0.51) solid;
+  background: #39523b;
   color: white;
   display: flex;
 }

@@ -1,3 +1,30 @@
+.invalid input {
+  border-style: solid;
+  border-color: rgba(255, 58, 0, 0.14);
+  background: rgba(255, 58, 0, 0.14);
+}
+.correct input {
+  border-color: rgba(40, 255, 0, 0.15);
+  background: rgba(40, 255, 0, 0.15);
+}
+.error {
+  color: #5c0f0b;
+}
+.error::before {
+  content: "⦸";
+  margin-right: 0.5em;
+  color: #a4100c;
+  background: transparent;
+}
+.without__error {
+  color: #196214;
+}
+.without__error::before {
+  content: "✔";
+  margin-right: 0.5em;
+  color: #22a419;
+  background: transparent;
+}
 .popup__window {
   top: 0;
   bottom: 0;
@@ -5,49 +32,151 @@
   right: 0;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-}
-.form__content {
-  margin-top: 5%;
-  margin-left: 35%;
-  margin-right: 35%;
-  padding: 10px;
   display: flex;
-  flex-direction: column;
-  background: #bcbba9;
+  font-family: "Book Antiqua", serif;
+}
+.popup__content {
+  width: 70%;
+  margin: auto;
+  background: #fffdf1;
   border-radius: 5px;
   box-shadow: 0 0 10px #000;
-}
-.form__content input {
-  outline: none;
-  font-size: 1em;
-  text-align: center;
-}
-.form__content__field {
   display: flex;
 }
-.form__content__field span {
+.form {
+  padding: 1em;
+  position: relative;
   flex-grow: 1;
-  text-align: right;
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
 }
-.form__content .invalid input {
-  border-color: rgba(255, 0, 0, 0.2);
-  background: rgba(255, 0, 0, 0.2);
+.form-number {
+  display: flex;
 }
-.form__content .invalid::after {
-  content: "!";
-  color: #d00000;
+.form-number span {
+  margin: auto;
+}
+.form-inputs {
+  display: flex;
+}
+.form-inputs-personal {
+  padding: 0.2em;
+  display: flex;
+  flex-direction: column;
+}
+.form-inputs-personal-full_name {
+  display: flex;
+  flex-direction: column;
+}
+.form-inputs-education {
+  padding: 0.2em;
+  display: flex;
+  flex-direction: column;
+}
+.form-inputs-field {
+  padding: 0.2em;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.form-inputs-field input {
+  margin: auto;
+  outline: none;
+  font-family: "Book Antiqua", serif;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+}
+.form-buttons {
+  display: flex;
+  margin-top: 0.5em;
+  color: black;
+}
+.form-buttons button,
+.form-buttons input {
+  outline: none;
+  padding: 0.5em;
+  background: transparent;
+  border: 1px solid rgba(165, 79, 0, 0.07);
+  border-radius: 0.5em;
+  font-family: "Book Antiqua", serif;
+  font-size: 1em;
+}
+.form-buttons button:hover {
+  background: rgba(226, 92, 0, 0.22);
+  border: 1px solid rgba(165, 79, 0, 0.31);
+}
+.form-buttons button:active {
+  background: rgba(165, 79, 0, 0.31);
+}
+.form-buttons-submit {
+  margin: auto auto auto 0;
+}
+.form-buttons-submit:hover {
+  background: rgba(226, 92, 0, 0.22);
+  border: 1px solid rgba(165, 79, 0, 0.31);
+}
+.form-buttons-submit:active {
+  background: rgba(165, 79, 0, 0.31);
+}
+.form-buttons-submit:disabled {
+  color: rgba(0, 0, 0, 0.51);
+}
+.form-buttons-cancel {
+  margin: auto 0 auto auto;
+  border: none;
+}
+.validations {
+  flex-grow: 1;
+  position: relative;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.validations-input__control {
+  max-width: 100%;
+  background: #fff0e9;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #000;
+  margin: auto 1.5em auto 0;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.validations-input__control-field {
+  position: relative;
+  display: flex;
+  margin: 0.2em;
+}
+.validations-warnings {
+  background: #fffbdc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #000;
+  margin: auto 1.5em auto 0;
+  padding: 1em;
+}
+.validations-warnings-field {
+  position: relative;
+  display: flex;
+  margin: 0.2em;
+}
+.validations-warnings-field::before {
+  content: "⚠";
+  margin-right: 0.5em;
+  font-size: 1.2em;
+  color: #c89a10;
+  background: transparent;
+}
+.warning::after {
   position: absolute;
-  right: 1%;
-}
-.form__content .correct input {
-  border-color: rgba(2, 255, 31, 0.2);
-  background: rgba(2, 255, 31, 0.2);
-}
-.form__content .correct::after {
-  content: "✓";
-  color: #00d002;
-  position: absolute;
-  right: 1%;
+  right: 0.5em;
+  top: 1.5em;
+  content: "⚠";
+  font-size: 1em;
+  color: rgba(214, 55, 0, 0.8);
+  background: transparent;
 }
 /*# sourceMappingURL=edit-form.component.css.map */
