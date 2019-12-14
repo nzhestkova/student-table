@@ -12,12 +12,27 @@
     background: rgba(40, 255, 0, 0.15);
   }
 }
+
 .error {
   color: #5c0f0b;
   &::before {
     content: "⦸";
     margin-right: 0.5em;
     color: #a4100c;
+    background: transparent;
+  }
+}
+.warning {
+  & input {
+    background: rgba(234, 202, 100, 0.31);
+  }
+  &::after {
+    position: absolute;
+    right: 0.5em;
+    top: 1.5em;
+    content: "⚠";
+    font-size: 1em;
+    color: rgba(214, 55, 0, 0.8);
     background: transparent;
   }
 }
@@ -174,16 +189,5 @@
         background: transparent;
       }
     }
-  }
-}
-.warning {
-  &::after {
-    position: absolute;
-    right: 0.5em;
-    top: 1.5em;
-    content: "⚠";
-    font-size: 1em;
-    color: rgba(214, 55, 0, 0.8);
-    background: transparent;
   }
 }

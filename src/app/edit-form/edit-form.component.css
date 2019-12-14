@@ -16,6 +16,18 @@
   color: #a4100c;
   background: transparent;
 }
+.warning input {
+  background: rgba(234, 202, 100, 0.31);
+}
+.warning::after {
+  position: absolute;
+  right: 0.5em;
+  top: 1.5em;
+  content: "⚠";
+  font-size: 1em;
+  color: rgba(214, 55, 0, 0.8);
+  background: transparent;
+}
 .without__error {
   color: #196214;
 }
@@ -168,15 +180,6 @@
   margin-right: 0.5em;
   font-size: 1.2em;
   color: #c89a10;
-  background: transparent;
-}
-.warning::after {
-  position: absolute;
-  right: 0.5em;
-  top: 1.5em;
-  content: "⚠";
-  font-size: 1em;
-  color: rgba(214, 55, 0, 0.8);
   background: transparent;
 }
 /*# sourceMappingURL=edit-form.component.css.map */

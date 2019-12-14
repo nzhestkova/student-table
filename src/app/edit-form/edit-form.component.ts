@@ -42,10 +42,12 @@ export class EditFormComponent implements OnInit {
       ]),
       studentName: new FormControl("", [
         Validators.required,
+        Validators.minLength(2),
         Validators.pattern(/^[A-Za-zА-Яа-я]*$/),
       ]),
       studentSecondName: new FormControl("", [
         Validators.required,
+        Validators.minLength(2),
         Validators.pattern(/^[A-Za-zА-Яа-я]*$/),
       ]),
       haveSecondName: new FormControl(),
@@ -58,7 +60,7 @@ export class EditFormComponent implements OnInit {
       Validators.required,
       Validators.min(1),
       Validators.max(6),
-      Validators.pattern(/^[0-9]+$/),
+      Validators.pattern(/^[0-9]$/),
     ]),
     studentBirth: new FormControl("", [
       Validators.required,
@@ -68,7 +70,7 @@ export class EditFormComponent implements OnInit {
       Validators.required,
       Validators.min(0),
       Validators.max(5),
-      Validators.pattern(/^[0-9]+$/),
+      Validators.pattern(/^[0-9]+\.?[0-9]*$/),
     ]),
     submitButton: new FormControl(),
   });
@@ -95,8 +97,14 @@ export class EditFormComponent implements OnInit {
     this.newStudentForm.controls["submitButton"].disable();
   }
   submitButtonPressed(): void {
-    if (this.showWindowCreate) { this.createNewRecord.emit(this.newStudentForm.getRawValue()); }
-    if (this.showWindowEdit) { this.updateRecord.emit(this.newStudentForm.getRawValue()); }
+    if (this.showWindowCreate) {
+      this.createNewRecord.emit(this.newStudentForm.getRawValue());
+      this.cancelCreating.emit();
+    }
+    if (this.showWindowEdit) {
+      this.updateRecord.emit(this.newStudentForm.getRawValue());
+      this.cancelEdit.emit();
+    }
     this.newStudentForm.disable();
   }
   cancelButtonPressed(): void {
@@ -123,8 +131,13 @@ export class EditFormComponent implements OnInit {
       this.newStudentForm.get("studentMark").value);
   }
   hasLengthError(): boolean {
-    if (this.newStudentForm.get("studentFullName.studentSurname").value) {
-      return this.newStudentForm.get("studentFullName.studentSurname").hasError("minlength");
+    if (this.newStudentForm.get("studentFullName.studentSurname").value &&
+        this.newStudentForm.get("studentFullName.studentName").value &&
+      (this.newStudentForm.get("studentFullName.studentSecondName").value ||
+      this.newStudentForm.get("studentFullName.studentSecondName").disabled)) {
+      return this.newStudentForm.get("studentFullName.studentSurname").hasError("minlength") &&
+        this.newStudentForm.get("studentFullName.studentName").hasError("minlength") &&
+        this.newStudentForm.get("studentFullName.studentSecondName").hasError("minlength") ;
     }
     return true;
   }
