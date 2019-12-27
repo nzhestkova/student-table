@@ -12,15 +12,15 @@ export class StylesToggleDirective implements OnInit {
   }
 
   @HostListener("click") toggle(): void {
-    this.elementRef.nativeElement.parentNode.classList.remove(this.stylesToggle[this.counter % this.length]);
+    this.elementRef.nativeElement.classList.remove(this.stylesToggle[this.counter % this.length]);
     this.counter += 1;
-    this.elementRef.nativeElement.parentNode.classList.add(this.stylesToggle[this.counter % this.length]);
+    this.elementRef.nativeElement.classList.add(this.stylesToggle[this.counter % this.length]);
     this.clickedOnSort.emit(this.counter);
   }
 
   ngOnInit(): void {
     this.counter = 0;
     this.length = this.stylesToggle.length;
-    this.elementRef.nativeElement.parentNode.classList.add(this.stylesToggle[this.counter % this.length]);
+    this.elementRef.nativeElement.classList.add(this.stylesToggle[this.counter % this.length]);
   }
 }

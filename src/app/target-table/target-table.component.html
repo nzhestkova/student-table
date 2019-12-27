@@ -7,8 +7,10 @@
         (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">ФИО</th>
     <th class="cell__string" [stylesToggle]="['sort-down', 'sort-up']"
         (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">Группа, курс</th>
-    <th class="cell__string" (click)="sortingByBirth('birth')">День рождения</th>
-    <th class="cell__numbers" (click)="sortingByAge('birth')">Возраст</th>
+    <th class="cell__string" (click)="sortingByBirth('birth')"
+        [stylesToggle]="['sort-down', 'sort-up']">День рождения</th>
+    <th class="cell__numbers" (click)="sortingByAge('birth')"
+        [stylesToggle]="['sort-down', 'sort-up']">Возраст</th>
     <th class="cell__numbers" [stylesToggle]="['sort-down', 'sort-up']"
         (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">Средний балл</th>
   </tr>

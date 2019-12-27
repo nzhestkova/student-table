@@ -25,6 +25,7 @@ th:hover::after {
 }
 .sort-up::after {
   border-color: transparent transparent rgba(0, 0, 0, 0.65) transparent;
+  bottom: 50%;
 }
 .mark__bad {
   background: rgba(255, 85, 62, 0.3);
