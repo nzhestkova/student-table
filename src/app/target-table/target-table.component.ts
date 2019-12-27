@@ -64,6 +64,12 @@ export class TargetTableComponent implements OnInit {
       this.studentsList.reverse();
     }
   }
+  sortingByNumberPropertyTest(property: string, counter: number): void {
+    this.sort.byNumberProperty(this.studentsList, property);
+    if (counter % 2 === 0) {
+      this.studentsList.reverse();
+    }
+  }
   sortingByAge(property: string): void {
     this.countSortClicks += 1;
     const now = new Date();
@@ -138,13 +144,14 @@ export class TargetTableComponent implements OnInit {
       newStudent["studentGroup"], newStudent["studentCourse"], newStudent["studentMark"], new Date(newStudent["studentBirth"]));
   }
   updateRecord(newRecord: object): void {
+    if (isNaN(+newRecord["studentMark"])) {}
     const currentRecord = students.find((function (item: object): object {
       if (item["recordBookNumber"] === newRecord["studentRecordBookNumber"]) { return item; }}));
     const studentFullName = newRecord["studentFullName"];
     students[students.indexOf(currentRecord)] = new Students(newRecord["studentRecordBookNumber"],
       studentFullName["studentSurname"], studentFullName["studentName"],
       studentFullName["studentSecondName"] ? studentFullName["studentSecondName"] : "", newRecord["studentGroup"],
-      newRecord["studentCourse"], newRecord["studentMark"], new Date(newRecord["studentBirth"]));
+      newRecord["studentCourse"], +newRecord["studentMark"], new Date(newRecord["studentBirth"]));
   }
   cancelPressed(): void {
     if (this.showWindowCreate) { this.creatingTurnOff.emit(); }

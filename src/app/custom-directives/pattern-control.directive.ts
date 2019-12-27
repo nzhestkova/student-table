@@ -6,9 +6,9 @@ import { AbstractControl } from "@angular/forms";
 })
 export class PatternControlDirective implements OnInit {
   @Input() patternControl: [AbstractControl, string];
+  @Output() showWarning = new EventEmitter();
   patternError: boolean;
   className: string;
-  @Output() showWarning = new EventEmitter();
   constructor(public elementRef: ElementRef) {
   }
   settingHighlight(): void {

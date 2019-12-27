@@ -29,8 +29,10 @@ export class EditFormComponent implements OnInit {
   @Input() showWindowCreate: boolean;
   @Input() showWindowEdit: boolean;
   availableSecondNameField = true;
-  studentNumber: number;
-  currentYear = new Date().getFullYear();
+
+  // studentNumber: number;
+  // currentYear = new Date().getFullYear();
+
   private _editThisRecord: object;
   newStudentForm = new FormGroup({
     studentRecordBookNumber: new FormControl(),
@@ -70,7 +72,7 @@ export class EditFormComponent implements OnInit {
       Validators.required,
       Validators.min(0),
       Validators.max(5),
-      Validators.pattern(/^[0-9]+\.?[0-9]*$/),
+      Validators.pattern(/^[0-9]+\.?,?[0-9]*$/),
     ]),
     submitButton: new FormControl(),
   });

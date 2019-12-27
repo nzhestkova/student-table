@@ -1,12 +1,16 @@
 <table class="table">
   <thead>
   <tr>
-    <th class="cell__numbers" (click)="sortingByNumberProperty('record_book_number')">№</th>
-    <th class="cell__string" (click)="sortingByNumberProperty('name')">ФИО</th>
-    <th class="cell__string" (click)="sortingByNumberProperty('course')">Группа, курс</th>
+    <th class="cell__numbers" [stylesToggle]="['sort-down', 'sort-up']"
+        (clickedOnSort)="sortingByNumberPropertyTest('record_book_number', $event)">№</th>
+    <th class="cell__string" [stylesToggle]="['sort-down', 'sort-up']"
+        (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">ФИО</th>
+    <th class="cell__string" [stylesToggle]="['sort-down', 'sort-up']"
+        (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">Группа, курс</th>
     <th class="cell__string" (click)="sortingByBirth('birth')">День рождения</th>
     <th class="cell__numbers" (click)="sortingByAge('birth')">Возраст</th>
-    <th class="cell__numbers" (click)="sortingByNumberProperty('mark')">Средний балл</th>
+    <th class="cell__numbers" [stylesToggle]="['sort-down', 'sort-up']"
+        (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">Средний балл</th>
   </tr>
   </thead>
   <tbody>

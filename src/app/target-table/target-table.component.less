@@ -5,47 +5,67 @@
   width: 100%;
   border: 1px solid black;
 }
+
 th {
   position: relative;
   cursor: pointer;
+
   &::after {
     content: "";
     position: absolute;
     right: 5%;
-    top: 30%;
     border-width: 10px;
     border-style: solid;
-    border-color: rgba(0, 0, 0, 0.65) transparent transparent transparent;
     visibility: hidden;
   }
+
   &:hover {
     &::after {
       visibility: visible;
     }
   }
 }
+
+.sort-down {
+  &::after {
+    border-color: rgba(0, 0, 0, 0.65) transparent transparent transparent;
+  }
+}
+
+.sort-up {
+  &::after {
+    border-color: transparent transparent rgba(0, 0, 0, 0.65) transparent;
+  }
+}
+
 .mark {
   &__bad {
-    background: rgba(255,85,62,0.3);
+    background: rgba(255, 85, 62, 0.3);
   }
+
   &__good {
-    background: rgba(17,108,34,0.3);
+    background: rgba(17, 108, 34, 0.3);
   }
+
   &__medium {
-    background: rgba(254,255,24,0.3);
+    background: rgba(254, 255, 24, 0.3);
   }
+
   &__none {
     background: none;
   }
 }
+
 .cell {
   &__numbers {
     text-align: center;
   }
+
   &__string {
     text-align: left;
   }
 }
+
 button {
   width: 100%;
   font-size: 1em;
@@ -53,28 +73,34 @@ button {
   background: rgba(255, 56, 22, 0.76);
   border: none;
   outline: none;
+
   &:hover {
     background: brown;
   }
+
   &:active {
     background: black;
     color: white;
   }
 }
+
 .button_edit {
   background: rgba(44, 176, 255, 0.85);
+
   &:hover {
     background: rgba(44, 176, 255, 0.5);
   }
+
   &:active {
     color: black;
     background: white;
   }
 }
+
 .edit {
   display: flex;
 }
+
 .hidden {
   display: none;
 }
-

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import { ButtonToggleComponent } from "./button-toggle/button-toggle.component";
 import { PatternControlDirective } from "./custom-directives/pattern-control.directive";
+import { StylesToggleDirective } from "./custom-directives/styles-toggle.directive";
 import { EditFormComponent } from "./edit-form/edit-form.component";
 import { PopupComponent } from "./popup/popup.component";
 import { TargetTableComponent } from "./target-table/target-table.component";
@@ -17,6 +18,7 @@ import { TargetTableComponent } from "./target-table/target-table.component";
     PopupComponent,
     EditFormComponent,
     PatternControlDirective,
+    StylesToggleDirective,
   ],
   imports: [
     BrowserModule,
