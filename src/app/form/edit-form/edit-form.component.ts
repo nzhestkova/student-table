@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { forbidFieldsWithSameContent, forbidYoungStudents } from "./special-validators";
 
 @Component({
   selector: "app-edit-form",
   templateUrl: "./edit-form.component.html",
-  styleUrls: ["./edit-form.component.css"]
+  styleUrls: ["./edit-form.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditFormComponent implements OnInit {
   get editThisRecord(): object { return this._editThisRecord; }
@@ -31,7 +32,6 @@ export class EditFormComponent implements OnInit {
   availableSecondNameField = true;
 
   // studentNumber: number;
-  // currentYear = new Date().getFullYear();
 
   private _editThisRecord: object;
   newStudentForm = new FormGroup({

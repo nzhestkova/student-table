@@ -1,7 +1,4 @@
 export class Sorting {
-  byNumberProperty(sortingArray: object[], property: string): void {
-    sortingArray.sort((a, b) => a[property] > b[property] ? 1 : -1);
-  }
   byBirthDate(sortingArray: object[], property: string): void {
     sortingArray.sort((function(a: object, b: object): number {
       if ((a[property].getMonth() > b[property].getMonth()) && (a[property].getDate() > b[property].getDate())) {

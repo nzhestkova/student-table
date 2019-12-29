@@ -1,13 +1,14 @@
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import { ButtonToggleComponent } from "./button-toggle/button-toggle.component";
-import { PatternControlDirective } from "./custom-directives/pattern-control.directive";
 import { StylesToggleDirective } from "./custom-directives/styles-toggle.directive";
-import { EditFormComponent } from "./edit-form/edit-form.component";
-import { PopupComponent } from "./popup/popup.component";
+import { BirthRusPipe } from "./custom-pipes/birth-rus/birth-rus.pipe";
+import { StartWithUpPipe } from "./custom-pipes/start-with-upper-case/start-with-up.pipe";
+import { EditFormModule } from "./form/edit-form.module";
+import { PopupModule } from "./popup/popup.module";
 import { TargetTableComponent } from "./target-table/target-table.component";
 
 @NgModule({
@@ -15,15 +16,15 @@ import { TargetTableComponent } from "./target-table/target-table.component";
     AppComponent,
     TargetTableComponent,
     ButtonToggleComponent,
-    PopupComponent,
-    EditFormComponent,
-    PatternControlDirective,
     StylesToggleDirective,
+    BirthRusPipe,
+    StartWithUpPipe,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
+    EditFormModule,
+    PopupModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

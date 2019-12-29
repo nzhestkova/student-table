@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { current_number, students, Students } from "src/model/students";
 import { Sorting } from "./sorting";
 
 @Component({
   selector: "app-target-table",
   templateUrl: "./target-table.component.html",
-  styleUrls: ["./target-table.component.css"]
+  styleUrls: ["./target-table.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TargetTableComponent implements OnInit {
   @Input() dateFiltrationBorders: string[];
@@ -24,10 +25,6 @@ export class TargetTableComponent implements OnInit {
   countSortClicks = 0;
   editThisRecord: object;
   sort = new Sorting();
-  studentCurrentAge(year: number): number {
-    const now = new Date();
-    return now.getFullYear() - year;
-  }
   isBadMark(value: number): boolean {
     return value < 3;
   }
@@ -37,35 +34,12 @@ export class TargetTableComponent implements OnInit {
   isMediumMark(value: number): boolean {
     return value >= 3 && value < 4;
   }
-  parseMonth(value: number): string {
-    switch (value) {
-      case 1: return "января";
-      case 2: return "февраля";
-      case 3: return "марта";
-      case 4: return "апреля";
-      case 5: return "мая";
-      case 6: return "июня";
-      case 7: return "июля";
-      case 8: return "августа";
-      case 9: return "сентября";
-      case 10: return "октября";
-      case 11: return "ноября";
-      default: return "декабря";
-    }
-  }
   nameContainRequest(line: string, request: string): boolean {
     if (!request || request === " ") { return true; }
     return line.toLowerCase().includes(request.toLowerCase());
   }
-  sortingByNumberProperty(property: string): void {
-    this.countSortClicks += 1;
-    this.sort.byNumberProperty(this.studentsList, property);
-    if (this.countSortClicks % 2 === 0) {
-      this.studentsList.reverse();
-    }
-  }
-  sortingByNumberPropertyTest(property: string, counter: number): void {
-    this.sort.byNumberProperty(this.studentsList, property);
+  sortingByNumberProperty(property: string, counter: number): void {
+    this.studentsList.sort((a, b) => a[property] > b[property] ? 1 : -1);
     if (counter % 2 === 0) {
       this.studentsList.reverse();
     }
@@ -86,10 +60,10 @@ export class TargetTableComponent implements OnInit {
       this.studentsList.reverse();
     }
   }
-  startRemoving(recordBookNumber: number, name: string): void {
+  startRemoving(recordBookNumber: number, name: string[]): void {
     this.showPopup = true;
     this.studentRemovingNumber = recordBookNumber;
-    this.studentRemovingName = name;
+    this.studentRemovingName = `${name[0]} ${name[1]} ${name[2]}`;
   }
   confirmationReceived(answerIsYes: boolean): void {
     this.showPopup = false;
@@ -138,12 +112,28 @@ export class TargetTableComponent implements OnInit {
     this.studentsList.push(this.createNewRecord(newStudent));
   }
   createNewRecord(newStudent: object): Students {
+    let updateDate = new Date(newStudent["studentBirth"]);
+    const month = updateDate.getMonth();
+    const year = updateDate.getFullYear();
+    updateDate = new Date(
+      month === 11 ? year - 1 : year,
+      month + 1,
+      updateDate.getDate(),
+      );
     const studentFullName = newStudent["studentFullName"];
     return new Students(this.currentBookNumber++, studentFullName["studentSurname"], studentFullName["studentName"],
       studentFullName["studentSecondName"] ? studentFullName["studentSecondName"] : "",
-      newStudent["studentGroup"], newStudent["studentCourse"], newStudent["studentMark"], new Date(newStudent["studentBirth"]));
+      newStudent["studentGroup"], newStudent["studentCourse"], newStudent["studentMark"], new Date(updateDate));
   }
   updateRecord(newRecord: object): void {
+    let updateDate = new Date(newRecord["studentBirth"]);
+    const month = updateDate.getMonth();
+    const year = updateDate.getFullYear();
+    updateDate = new Date(
+      month === 11 ? year - 1 : year,
+      month + 1,
+      updateDate.getDate(),
+    );
     if (isNaN(+newRecord["studentMark"])) {}
     const currentRecord = students.find((function (item: object): object {
       if (item["recordBookNumber"] === newRecord["studentRecordBookNumber"]) { return item; }}));
@@ -151,7 +141,7 @@ export class TargetTableComponent implements OnInit {
     students[students.indexOf(currentRecord)] = new Students(newRecord["studentRecordBookNumber"],
       studentFullName["studentSurname"], studentFullName["studentName"],
       studentFullName["studentSecondName"] ? studentFullName["studentSecondName"] : "", newRecord["studentGroup"],
-      newRecord["studentCourse"], +newRecord["studentMark"], new Date(newRecord["studentBirth"]));
+      newRecord["studentCourse"], +newRecord["studentMark"], updateDate);
   }
   cancelPressed(): void {
     if (this.showWindowCreate) { this.creatingTurnOff.emit(); }

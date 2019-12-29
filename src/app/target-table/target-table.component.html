@@ -2,17 +2,17 @@
   <thead>
   <tr>
     <th class="cell__numbers" [stylesToggle]="['sort-down', 'sort-up']"
-        (clickedOnSort)="sortingByNumberPropertyTest('record_book_number', $event)">№</th>
+        (clickedOnSort)="sortingByNumberProperty('recordBookNumber', $event)">№</th>
     <th class="cell__string" [stylesToggle]="['sort-down', 'sort-up']"
-        (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">ФИО</th>
+        (clickedOnSort)="sortingByNumberProperty('name', $event)">ФИО</th>
     <th class="cell__string" [stylesToggle]="['sort-down', 'sort-up']"
-        (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">Группа, курс</th>
-    <th class="cell__string" (click)="sortingByBirth('birth')"
+        (clickedOnSort)="sortingByNumberProperty('course', $event)">Группа, курс</th>
+    <th class="cell__string" (clickedOnSort)="sortingByBirth('birth')"
         [stylesToggle]="['sort-down', 'sort-up']">День рождения</th>
-    <th class="cell__numbers" (click)="sortingByAge('birth')"
+    <th class="cell__numbers" (clickedOnSort)="sortingByAge('birth')"
         [stylesToggle]="['sort-down', 'sort-up']">Возраст</th>
     <th class="cell__numbers" [stylesToggle]="['sort-down', 'sort-up']"
-        (clickedOnSort)="sortingByNumberPropertyTest('name', $event)">Средний балл</th>
+        (clickedOnSort)="sortingByNumberProperty('mark', $event)">Средний балл</th>
   </tr>
   </thead>
   <tbody>
@@ -26,14 +26,15 @@
        !filtrationByMark(student.mark, markFiltrationBorders)}"
       *ngFor="let student of studentsList">
     <td class="cell__numbers"> {{student.recordBookNumber}} </td>
-    <td> {{student.surname}} {{student.name}} {{student.secondName}} </td>
+    <td> {{student.surname | startWithUp}} {{student.name | startWithUp}} {{student.secondName | startWithUp}} </td>
     <td> {{student.group}}, {{student.course}} </td>
-    <td> {{student.birth | date:"dd MMMM"}} </td>
-    <td class="cell__numbers"> {{studentCurrentAge(student.birth.getFullYear())}} </td>
+    <td> {{student.birth | birthRus}} </td>
+    <td class="cell__numbers"> {{student.birth | birthYear}} </td>
     <td class="cell__numbers"> {{student.mark}} </td>
     <td [ngClass]="{edit: true, hidden: removingModeOff}">
       <button class="button_edit" (click)="startEditStudentInformation(student)">✎</button>
-      <button class="button_remove" (click)="startRemoving(student.recordBookNumber, student.name)">⛌</button>
+      <button (click)="startRemoving(student.recordBookNumber, [student.surname, student.name, student.secondName])"
+              class="button_remove">⛌</button>
     </td>
   </tr>
   </tbody>

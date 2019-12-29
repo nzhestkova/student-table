@@ -1,9 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from "@angular/core";
 
 @Component({
   selector: "app-button-toggle",
   templateUrl: "./button-toggle.component.html",
-  styleUrls: ["./button-toggle.component.css"]
+  styleUrls: ["./button-toggle.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtonToggleComponent implements OnInit {
   get markBorderRight(): number { return this._markBorderRight; }
